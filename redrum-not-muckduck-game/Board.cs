@@ -4,7 +4,7 @@ namespace redrum_not_muckduck_game
     public class Board
     {
         internal int BOARD_DIMENSION_ROWS = 30;
-        internal int BOARD_DIMENSION_COLUMNS = Console.WindowWidth;
+        internal int BOARD_DIMENSION_COLUMNS = 80;
         public char[,] board { get; set; }
 
         public Board()

@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Location.cs" />
+    <None Remove="Theme.mp4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Theme.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 </Project>
