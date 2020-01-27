@@ -7,15 +7,12 @@ namespace redrum_not_muckduck_game
         static void Main()
         {
             Board current = new Board();
-            current.Render();
             current.AddItemToFoundItems();
+            current.UpdateCurrentPlayerLocation("Melissa");
             current.Render();
 
-            PlayGame playGame = new PlayGame();
-            playGame.StartGame(); 
-
-           
+            Game playGame = new Game();
+            playGame.StartGame();
         }
-
     }
 }
