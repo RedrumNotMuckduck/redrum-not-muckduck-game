@@ -19,12 +19,30 @@ namespace redrum_not_muckduck_game
                 DescribeRoom(currentRoom);
                 Console.WriteLine("> ");
                 userChoice = Console.ReadLine().ToLower();
+                Console.WriteLine();
 
                 switch (userChoice)
                 {
                     case "leave":
-                        if (currentRoom.AdjacentRoom != null)
-                            currentRoom = currentRoom.AdjacentRoom;
+                           string nextRoom = ""; 
+                           Console.Write("You have the choice to go to: ");
+                           for (int i = 0; i <currentRoom.AdjacentRoom.Count; i++)
+                            {  
+                                Console.Write($"{currentRoom.AdjacentRoom[i].RoomName} ");
+                            }
+
+                            Console.WriteLine();
+                            Console.WriteLine("Type the room name to proceed");
+                            Console.WriteLine();
+                            nextRoom = Console.ReadLine().ToLower();
+
+                        for (int i = 0; i < currentRoom.AdjacentRoom.Count; i++)
+                            {
+                                if(nextRoom == currentRoom.AdjacentRoom[i].RoomName.ToLower())
+                                {
+                                    currentRoom = currentRoom.AdjacentRoom[i]; 
+                                }
+                            }
                         break;
                     case "explore":
                         Console.WriteLine(currentRoom.ItemInRoom);
@@ -32,7 +50,6 @@ namespace redrum_not_muckduck_game
                     case "talk":
                         Console.WriteLine(currentRoom.PersonInRoom);
                         break;
-
                     case "q":
                         Console.WriteLine("\nThanks for playing. Goodbye. ");
                         break;
@@ -86,7 +103,13 @@ namespace redrum_not_muckduck_game
                 "Kelly - Why does Dwight have a blow horn?"
                 );
 
-            accounting.AdjacentRoom = sales;
+            accounting.AdjacentRoom = new List<Room> {sales};
+            sales.AdjacentRoom = new List<Room> { reception, accounting, kitchen };
+            reception.AdjacentRoom = new List<Room> { sales };
+            kitchen.AdjacentRoom = new List<Room> { sales, theAnnex };
+            theAnnex.AdjacentRoom = new List<Room> { kitchen, breakroom };
+            breakroom.AdjacentRoom = new List<Room> { theAnnex }; 
+
             return accounting;
         }
 
@@ -94,12 +117,9 @@ namespace redrum_not_muckduck_game
         {
             Console.WriteLine();
             Console.WriteLine(room.RoomName);
-
             Console.WriteLine("".PadLeft(room.RoomName.Length), '-');
             Console.WriteLine(room.Description);
             Console.WriteLine("".PadLeft(room.RoomName.Length), '-');
-
-
         }
     }
 

@@ -14,7 +14,6 @@ namespace redrum_not_muckduck_game
             PlayGame playGame = new PlayGame();
             playGame.StartGame(); 
 
-           
         }
 
     }
