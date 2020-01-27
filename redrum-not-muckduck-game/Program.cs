@@ -4,9 +4,10 @@ namespace redrum_not_muckduck_game
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            Board current = new Board();
+            current.Render();
         }
     }
 }
