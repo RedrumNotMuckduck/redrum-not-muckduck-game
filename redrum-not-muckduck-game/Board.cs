@@ -25,13 +25,14 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        public void AddItemToList()
+        public void AddItemToFoundItems()
         {
             //TODO: Update function to get item from Room Class
-            // 1. Loop over string - add each char to board
-            // 2. Clear Console
-            // 3. Rerender board to console
-            // 4. Update row to + 1 (so that the next item goes on the next line)
+            // 1. Rename variables to more easily understand what they do
+            // 2. Loop over string - add each char to board
+            // 3. Clear Console
+            // 4. Rerender board to console
+            // 5. Update row to + 1 (so that the next item goes on the next line)
 
             int row = 8;
             int col = 50;
