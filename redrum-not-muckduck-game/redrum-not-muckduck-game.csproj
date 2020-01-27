@@ -6,4 +6,7 @@
     <RootNamespace>redrum_not_muckduck_game</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Location.cs" />
+  </ItemGroup>
 </Project>
