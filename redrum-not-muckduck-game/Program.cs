@@ -4,7 +4,7 @@ namespace redrum_not_muckduck_game
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Welcome to the Office");
 
@@ -107,7 +107,10 @@ namespace redrum_not_muckduck_game
             Console.WriteLine(room.Description);
             Console.WriteLine("".PadLeft(room.RoomName.Length), '-');
 
-
+            Board current = new Board();
+            current.Render();
+            current.AddItemToList();
+            current.Render();
         }
     }
 }
