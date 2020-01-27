@@ -21,5 +21,4 @@ namespace redrum_not_muckduck_game
             PersonInRoom = personInRoom;
         }
     }
-
 }
