@@ -8,6 +8,9 @@ namespace redrum_not_muckduck_game
         {
             Board current = new Board();
             current.Render();
+            current.AddItemToList();
+            current.Render();
+
         }
     }
 }
