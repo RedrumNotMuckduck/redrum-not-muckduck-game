@@ -37,12 +37,8 @@ namespace redrum_not_muckduck_game
                     default:
                         Console.WriteLine("Please enter a valid option: (explore, talk, leave, q)");
                         break; 
-
                 }
             }
-     
-                
-       
         }
         
         static Room SetUpRooms()
@@ -60,7 +56,6 @@ namespace redrum_not_muckduck_game
                 "Random torch", 
                 "Andy - this would never happen at Cornell"
                 );
-
 
             Room kitchen = new Room(
                 "Kitchen",
@@ -89,13 +84,8 @@ namespace redrum_not_muckduck_game
                 "Kelly - Why does Dwight have a blow horn?"
                 ); 
 
-
             accounting.AdjacentRoom = sales;
-
-            
-
             return accounting; 
-
         }
 
         static void DescribeRoom(Room room)
