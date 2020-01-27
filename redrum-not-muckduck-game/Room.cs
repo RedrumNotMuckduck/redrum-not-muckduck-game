@@ -11,7 +11,7 @@ namespace redrum_not_muckduck_game
         public string ItemInRoom { get; set; }
         public string PersonInRoom { get; set; }
 
-        public Room AdjacentRoom;
+        public List<Room> AdjacentRoom;
 
         public Room(string roomName, string description, string itemInRoom, string personInRoom)
         {
