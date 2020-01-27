@@ -6,12 +6,12 @@ namespace redrum_not_muckduck_game
 {
     class Room
     {
-        public string RoomName;
-        public string Description;
-        public string ItemInRoom;
-        public string PersonInRoom;
+        public string RoomName { get; set; }
+        public string Description { get; set; }
+        public string ItemInRoom { get; set; }
+        public string PersonInRoom { get; set; }
 
-        public Room AdjacentRoom;
+        public List<Room> AdjacentRoom;
 
         public Room(string roomName, string description, string itemInRoom, string personInRoom)
         {
