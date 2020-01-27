@@ -10,13 +10,13 @@ namespace redrum_not_muckduck_game
 
             Room currentRoom = SetUpRooms();
 
-            string userChoice = ""; 
+            string userChoice = "";
 
             while (userChoice != "q")
             {
                 DescribeRoom(currentRoom);
                 Console.WriteLine("> ");
-                userChoice = Console.ReadLine().ToLower(); 
+                userChoice = Console.ReadLine().ToLower();
 
                 switch (userChoice)
                 {
@@ -30,30 +30,30 @@ namespace redrum_not_muckduck_game
                     case "talk":
                         Console.WriteLine(currentRoom.PersonInRoom);
                         break;
-              
+
                     case "q":
                         Console.WriteLine("\nThanks for playing. Goodbye. ");
                         break;
                     default:
                         Console.WriteLine("Please enter a valid option: (explore, talk, leave, q)");
-                        break; 
+                        break;
                 }
             }
         }
-        
+
         static Room SetUpRooms()
         {
             Room accounting = new Room(
                 "Accounting",
-                "-Explore the room, Talk to the person, go to the adjacent room", 
+                "-Explore the room, Talk to the person, go to the adjacent room",
                 "Angela's cat - Bandit",
                 "Oscar - I am going to the ceiling"
                 );
 
             Room sales = new Room(
                 "Sales",
-                "-Explore the room, Talk to the person, go the the adjacent room", 
-                "Random torch", 
+                "-Explore the room, Talk to the person, go the the adjacent room",
+                "Random torch",
                 "Andy - this would never happen at Cornell"
                 );
 
@@ -73,8 +73,8 @@ namespace redrum_not_muckduck_game
 
             Room reception = new Room(
                 "Reception",
-                "- Explore, Talk, Leave the room", 
-                "nothing is here", 
+                "- Explore, Talk, Leave the room",
+                "nothing is here",
                 "Pam - the door is locked"
                 );
             Room theAnnex = new Room(
@@ -82,10 +82,10 @@ namespace redrum_not_muckduck_game
                 "- Explore, Talk to someone, Leave the room",
                 "Beet stained cigs, waring label- could cause fire",
                 "Kelly - Why does Dwight have a blow horn?"
-                ); 
+                );
 
             accounting.AdjacentRoom = sales;
-            return accounting; 
+            return accounting;
         }
 
         static void DescribeRoom(Room room)
