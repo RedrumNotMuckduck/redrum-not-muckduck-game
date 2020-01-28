@@ -34,7 +34,6 @@ namespace redrum_not_muckduck_game
             {
                 board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
             }
-            Render();
         }
 
         public void ClearCurrentRoom()
@@ -56,7 +55,6 @@ namespace redrum_not_muckduck_game
             {
                 board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.RoomName[j];
             }
-            Render();
         }
 
         public char[,] Create()

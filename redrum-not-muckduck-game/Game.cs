@@ -17,7 +17,7 @@ namespace redrum_not_muckduck_game
         public static int NUMBER_OF_LIVES { get; set; } = 3;
         public static int NUMBER_OF_ITEMS { get; set; } = 0;
         private bool IsGameOver = false;
-        private string[] Actions = new string[] {"-explore", "-talk to someone", "-leave the current room", "-quit playing"};
+        private string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
 
         public Game()
         {
@@ -68,6 +68,7 @@ namespace redrum_not_muckduck_game
         {
             Board.UpdateCurrentPlayerLocation();
             AskForAction();
+            Board.Render();
             Console.WriteLine("Welcome to the Office!");
 
             while (!IsGameOver)
@@ -85,18 +86,25 @@ namespace redrum_not_muckduck_game
             switch (userChoice)
             {
                 case "leave":
+                    DeleteQuote();
                     LeaveTheRoom();
+                    Board.Render();
                     break;
                 case "explore":
+                    DeleteAdjacentRooms();
+                    DeleteQuote();
                     Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
                     NUMBER_OF_ITEMS++;
                     //TODO: add function to handle when nothing is in the room/when item is already found
                     Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                    Board.Render();
                     break;
                 case "talk":
+                    DeleteAdjacentRooms();
+                    DeleteQuote();
+                    ShowQuote();
                     Board.Render();
-                    Console.WriteLine(CurrentRoom.PersonInRoom);
                     break;
                 case "quit":
                     IsGameOver = !IsGameOver;
@@ -107,6 +115,68 @@ namespace redrum_not_muckduck_game
                     Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
+            }
+        }
+
+        private void ShowAdjacentRooms()
+        {
+            int ROW_WHERE_OPTIONS_START = 14;
+            int COLUMN_WHERE_OPTIONS_START = 2;
+            string header = "You have the choice to go to: ";
+            for (int i = 0; i < header.Length; i++)
+            {
+                Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = header[i];
+            }
+            ROW_WHERE_OPTIONS_START++;
+            foreach (Room room in CurrentRoom.AdjacentRoom)
+            {
+                for (int i = 0; i < room.RoomName.Length; i++)
+                {
+                    Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = room.RoomName[i];
+                }
+                ROW_WHERE_OPTIONS_START++;
+            }
+        }
+
+        private void DeleteAdjacentRooms()
+        {
+            int ROW_WHERE_OPTIONS_START = 14;
+            int COLUMN_WHERE_OPTIONS_START = 2;
+            string header = "You have the choice to go to: ";
+            for (int i = 0; i < header.Length; i++)
+            {
+                Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = ' ';
+            }
+            ROW_WHERE_OPTIONS_START++;
+            foreach (Room room in CurrentRoom.AdjacentRoom)
+            {
+                for (int i = 0; i < room.RoomName.Length; i++)
+                {
+                    Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = ' ';
+                }
+                ROW_WHERE_OPTIONS_START++;
+            }
+        }
+
+        private void DeleteQuote()
+        {
+            int ROW_WHERE_QUOTE_STARTS = 14;
+            int COLUMN_WHERE_QUOTE_STARTS = 1;
+            for (int i = 0; i < CurrentRoom.PersonInRoom.Length; i++)
+            {
+                Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = ' ';
+            }
+
+        }
+
+        private void ShowQuote()
+        {
+            int ROW_WHERE_QUOTE_STARTS = 14;
+            int COLUMN_WHERE_QUOTE_STARTS = 1;
+            for (int i = 0; i < CurrentRoom.PersonInRoom.Length; i++)
+            {
+                Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = CurrentRoom.PersonInRoom[i];
+
             }
         }
 
@@ -122,22 +192,16 @@ namespace redrum_not_muckduck_game
                 }
                 ROW_WHERE_ACTIONS_START++;
             }
-            Board.Render();
         }
 
         private void LeaveTheRoom()
         {
-            List<string> listOfRooms = new List<string>();
-            Console.Write("You have the choice to go to: ");
-            for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
-            {
-                listOfRooms.Add(CurrentRoom.AdjacentRoom[i].RoomName.ToLower()); 
-                Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
-            }
-            Console.WriteLine();
+            ShowAdjacentRooms();
+            Board.Render();
             Console.Write("> ");
             // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
+            DeleteAdjacentRooms();
             Board.ClearCurrentRoom();
             UpdateCurrentRoom(nextRoom);
             Board.UpdateCurrentPlayerLocation();
