@@ -6,8 +6,7 @@ namespace redrum_not_muckduck_game
     {
         static void Main()
         {
-            Game game = new Game();
-            game.PlayGame();
+            WelcomePage.AcsiiArt();
         }
     }
 }
