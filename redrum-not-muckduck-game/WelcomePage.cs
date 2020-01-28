@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using NAudio.Wave;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace redrum_not_muckduck_game
 {
     class WelcomePage
     {
+        public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         public static void AcsiiArt()
         {
             
@@ -34,7 +36,10 @@ namespace redrum_not_muckduck_game
             Console.WriteLine("░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒");
             Console.WriteLine("░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
             Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
-            Sound.PlaySound("Theme.mp4", 1000);
+            if (IsWindows)
+            {
+                Sound.PlaySound("Theme.mp4", 1000);
+            }
             
             TypeLine("Come on an adventure.. If you dare..");
             Console.WriteLine();
