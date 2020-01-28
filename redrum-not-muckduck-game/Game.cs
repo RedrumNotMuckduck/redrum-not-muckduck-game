@@ -15,6 +15,7 @@ namespace redrum_not_muckduck_game
         public static Room CurrentRoom { get; set; }
         public Board Board = new Board(); 
         public static int NUMBER_OF_LIVES { get; set; } = 3;
+        public static int NUMBER_OF_ITEMS { get; set; } = 0;
         private bool IsGameOver = false; 
 
         public Game()
@@ -22,36 +23,36 @@ namespace redrum_not_muckduck_game
             Accounting = new Room(
                "Accounting",
                "Angela's cat, Bandit",
-               "Oscar: I am going into the ceiling"
+               "Oscar: \"I am going into the ceiling\""
                );
             CurrentRoom = Accounting;
             Sales = new Room(
                "Sales",
                "a random torch",
-               "Andy: This would never happen at Cornell"
+               "Andy: \"This would never happen at Cornell\""
                );
 
             Kitchen = new Room(
                 "Kitchen",
                 "Oscar falling out of ceiling",
-                "Phyllis: I saw Dwight came from the break room"
+                "Phyllis: \"I saw Dwight came from the break room\""
                 );
 
             Breakroom = new Room(
                 "Breakroom",
-                "nothing but you see the vending machine.",
+                "vending machine",
                 "No one is here"
                 );
 
             Reception = new Room(
                 "Reception",
                 "nothing",
-                "Pam: the door is locked"
+                "Pam: \"The door is locked\""
                 );
             Annex = new Room(
-                "The Annex",
-                "beet stained cigs, warning label 'could cause fire'",
-                "Kelly: Why does Dwight have a blow horn?"
+                "Annex",
+                "beet stained cigs",
+                "Kelly: \"Why does Dwight have a blow horn?\""
                 );
 
             Accounting.AdjacentRoom = new List<Room> { Sales };
@@ -64,11 +65,9 @@ namespace redrum_not_muckduck_game
 
         public void PlayGame()
         {
-            Board.AddItemToFoundItems();
-            Board.UpdateCurrentPlayerLocation("Melissa");
-            Board.Render();
+            Board.UpdateCurrentPlayerLocation();
 
-            Console.WriteLine("Welcome to the Office");
+            Console.WriteLine("Welcome to the Office!");
 
             while (!IsGameOver)
             {
@@ -78,10 +77,9 @@ namespace redrum_not_muckduck_game
 
         private void UserTurn()
         {
-            string userChoice = "";
             Console.WriteLine("You can explore, talk to someone, leave the current room, or quit playing");
             Console.Write("> ");
-            userChoice = Console.ReadLine().ToLower();
+            string userChoice = Console.ReadLine().ToLower();
             Console.WriteLine();
 
             switch (userChoice)
@@ -90,16 +88,23 @@ namespace redrum_not_muckduck_game
                     LeaveTheRoom();
                     break;
                 case "explore":
+                    Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
+                    NUMBER_OF_ITEMS++;
+                    //TODO: add function to handle when nothing is in the room/when item is already found
+                    Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
                     break;
                 case "talk":
+                    Board.Render();
                     Console.WriteLine(CurrentRoom.PersonInRoom);
                     break;
                 case "quit":
-                    IsGameOver = !IsGameOver; 
+                    IsGameOver = !IsGameOver;
+                    Console.Clear();
                     Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
                 default:
+                    Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
             }
@@ -114,16 +119,13 @@ namespace redrum_not_muckduck_game
                 listOfRooms.Add(CurrentRoom.AdjacentRoom[i].RoomName.ToLower()); 
                 Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
             }
+            Console.WriteLine();
+            Console.Write("> ");
             // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
-            if (!listOfRooms.Contains(nextRoom))
-            {
-                Console.WriteLine("Invalid choice");
-            }
-            else
-            {
-                UpdateCurrentRoom(nextRoom);
-            }
+            Board.ClearCurrentRoom();
+            UpdateCurrentRoom(nextRoom);
+            Board.UpdateCurrentPlayerLocation();
         }
 
         private void UpdateCurrentRoom(string nextRoom) 
@@ -140,9 +142,9 @@ namespace redrum_not_muckduck_game
         public void LoseALife()
         {
             int COLUMN_WHERE_HEARTS_START = 49;
-            int ROW = 2;
-            int COLUMN = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
-            Board.board[ROW, COLUMN] = ' ';
+            int ROW_WHERE_HEARTS_START = 2;
+            int COLUMN_TO_DELETE_HEART_FROM = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
+            Board.board[ROW_WHERE_HEARTS_START, COLUMN_TO_DELETE_HEART_FROM] = ' ';
             NUMBER_OF_LIVES -= NUMBER_OF_LIVES;
         }
     }

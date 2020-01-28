@@ -14,7 +14,7 @@ namespace redrum_not_muckduck_game
 
         public void Render()
         {
-
+            Console.Clear();
             for (int row = 0; row < BOARD_DIMENSION_ROWS; row++)
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
@@ -25,35 +25,38 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        public void AddItemToFoundItems()
+        public void AddItemToFoundItems(string foundItem)
         {
-            //TODO: Update function to get item from Room Class
-            // 1. Rename variables to more easily understand what they do
-            // 2. Loop over string - add each char to board
-            // 3. Clear Console
-            // 4. Rerender board to console
-            // 5. Update row to + 1 (so that the next item goes on the next line)
-
-            int ROW = 8;
-            int COLUMN = 50;
-            Console.Clear();
-            board[ROW, COLUMN] = 'M';
+            int ROW_WHERE_ITEMS_START = 7;
+            int COLUMN_WHERE_ITEMS_START = 50;
+            int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.NUMBER_OF_ITEMS;
+            for (int i = 0; i < foundItem.Length; i++)
+            {
+                board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
+            }
+            Render();
         }
 
-        public void UpdateCurrentPlayerLocation(string nextRoom)
+        public void ClearCurrentRoom()
         {
-            int ROW = 1;
-            int COLUMN = 16;
-
-            //TODO: Add this loop when adjacent rooms is properly linked to current room
-            //for (int i = 0; i < Game.currentRoom.RoomName.Length; i++)
-            //{
-            //    board[ROW, COLUMN + i] = ' ';
-            //}
-            for (int j = 0; j < nextRoom.Length; j++)
+            int ROW_WHERE_LOCATION_STARTS = 1;
+            int COLUMN_WHERE_LOCATION_STARTS = 16;
+            for (int i = 0; i < Game.CurrentRoom.RoomName.Length; i++)
             {
-                board[ROW, COLUMN + j] = nextRoom[j];
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
             }
+
+        }
+
+        public void UpdateCurrentPlayerLocation()
+        {
+            int ROW_WHERE_LOCATION_STARTS = 1;
+            int COLUMN_WHERE_LOCATION_STARTS = 16;
+            for (int j = 0; j < Game.CurrentRoom.RoomName.Length; j++)
+            {
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.RoomName[j];
+            }
+            Render();
         }
 
         public char[,] Create()
