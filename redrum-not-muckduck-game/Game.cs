@@ -80,7 +80,7 @@ namespace redrum_not_muckduck_game
         {
             string userChoice = "";
             Console.WriteLine("You can explore, talk to someone, leave the current room, or quit playing");
-            Console.WriteLine("> ");
+            Console.Write("> ");
             userChoice = Console.ReadLine().ToLower();
             Console.WriteLine();
 
@@ -107,14 +107,23 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
+            List<string> listOfRooms = new List<string>();
             Console.Write("You have the choice to go to: ");
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {
+                listOfRooms.Add(CurrentRoom.AdjacentRoom[i].RoomName.ToLower()); 
                 Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
             }
             // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
-            UpdateCurrentRoom(nextRoom);
+            if (!listOfRooms.Contains(nextRoom))
+            {
+                Console.WriteLine("Invalid choice");
+            }
+            else
+            {
+                UpdateCurrentRoom(nextRoom);
+            }
         }
 
         private void UpdateCurrentRoom(string nextRoom) 
