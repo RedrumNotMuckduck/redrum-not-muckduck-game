@@ -40,7 +40,7 @@ namespace redrum_not_muckduck_game
 
             Breakroom = new Room(
                 "Breakroom",
-                "nothing but you see the vending machine.",
+                "vending machine",
                 "No one is here"
                 );
 
@@ -51,7 +51,7 @@ namespace redrum_not_muckduck_game
                 );
             Annex = new Room(
                 "Annex",
-                "beet stained cigs, warning label 'could cause fire'",
+                "beet stained cigs",
                 "Kelly: \"Why does Dwight have a blow horn?\""
                 );
 
@@ -117,7 +117,8 @@ namespace redrum_not_muckduck_game
             {
                 Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
             }
-            Console.WriteLine("> ");
+            Console.WriteLine();
+            Console.Write("> ");
             // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
             Board.ClearCurrentRoom();
@@ -139,9 +140,9 @@ namespace redrum_not_muckduck_game
         public void LoseALife()
         {
             int COLUMN_WHERE_HEARTS_START = 49;
-            int ROW = 2;
-            int COLUMN = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
-            Board.board[ROW, COLUMN] = ' ';
+            int ROW_WHERE_HEARTS_START = 2;
+            int COLUMN_TO_DELETE_HEART_FROM = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
+            Board.board[ROW_WHERE_HEARTS_START, COLUMN_TO_DELETE_HEART_FROM] = ' ';
             NUMBER_OF_LIVES -= NUMBER_OF_LIVES;
         }
     }
