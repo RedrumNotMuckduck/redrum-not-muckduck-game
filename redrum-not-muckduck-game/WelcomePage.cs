@@ -26,7 +26,7 @@ namespace redrum_not_muckduck_game
             Console.WriteLine("       ▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ");
             Console.WriteLine("       ░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ");
             Console.WriteLine("       ░ ░░   ░ ▒░  ░ ▒ ▒░     ░    ");
-            Console.WriteLine("███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀");
+            Console.WriteLine(" ███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀");
             Console.WriteLine("▓██▒▀█▀ ██▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ");
             Console.WriteLine("▓██    ▓██░▓██  ▒██░▒▓█    ▄ ▓███▄░ ░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░ ");
             Console.WriteLine("▒██    ▒██ ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ");
@@ -35,8 +35,16 @@ namespace redrum_not_muckduck_game
             Console.WriteLine("░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
             Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
             Sound.PlaySound("Theme.mp4", 1000);
-            TypeLine("Come on an adventure.. If you dare.. ");
-            Console.ReadLine();
+            
+            TypeLine("Come on an adventure.. If you dare..");
+            Console.WriteLine();
+            TypeLine("Press any key to continue...");
+
+            while (Console.ReadKey().Key != ConsoleKey.Escape)
+            {
+                Game game = new Game();
+                game.PlayGame();
+            }
         }
 
         static void TypeLine(string line)
@@ -44,7 +52,7 @@ namespace redrum_not_muckduck_game
             for (int i = 0; i < line.Length; i++)
             {
                 Console.Write(line[i]);
-                System.Threading.Thread.Sleep(150); // Sleep for 150 milliseconds
+                Thread.Sleep(150); // Sleep for 150 milliseconds
             }
         }
     }
