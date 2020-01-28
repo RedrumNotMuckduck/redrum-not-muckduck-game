@@ -5,7 +5,7 @@ namespace redrum_not_muckduck_game
     {
         internal int BOARD_DIMENSION_ROWS = 30;
         internal int BOARD_DIMENSION_COLUMNS = 80;
-        public char[,] board { get; set; }
+        public static char[,] board { get; set; }
 
         public Board()
         {
@@ -54,14 +54,6 @@ namespace redrum_not_muckduck_game
             {
                 board[ROW, COLUMN + j] = nextRoom[j];
             }
-        }
-
-        public void LoseALife()
-        {
-            int ROW = 2;
-            int COLUMN = Game.NUMBER_OF_LIVES + 49;
-            board[ROW, COLUMN] = ' ';
-            Game.NUMBER_OF_LIVES -= Game.NUMBER_OF_LIVES;
         }
 
         public char[,] Create()

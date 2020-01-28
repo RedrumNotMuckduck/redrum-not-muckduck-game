@@ -127,5 +127,14 @@ namespace redrum_not_muckduck_game
                 }
             }
         }
+
+        public void LoseALife()
+        {
+            int COLUMN_WHERE_HEARTS_START = 49;
+            int ROW = 2;
+            int COLUMN = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
+            Board.board[ROW, COLUMN] = ' ';
+            NUMBER_OF_LIVES -= NUMBER_OF_LIVES;
+        }
     }
 }
