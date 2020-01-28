@@ -13,10 +13,11 @@ namespace redrum_not_muckduck_game
         public Room Reception { get; set; }
         public Room Annex { get; set; }
         public static Room CurrentRoom { get; set; }
-        public Board Board = new Board(); 
+        public Board Board = new Board();
         public static int NUMBER_OF_LIVES { get; set; } = 3;
         public static int NUMBER_OF_ITEMS { get; set; } = 0;
-        private bool IsGameOver = false; 
+        private bool IsGameOver = false;
+        private string[] Actions = new string[] {"-explore", "-talk to someone", "-leave the current room", "-quit playing"};
 
         public Game()
         {
@@ -77,7 +78,7 @@ namespace redrum_not_muckduck_game
 
         private void UserTurn()
         {
-            Console.WriteLine("You can explore, talk to someone, leave the current room, or quit playing");
+            AskForAction();
             Console.Write("> ");
             string userChoice = Console.ReadLine().ToLower();
             Console.WriteLine();
@@ -108,6 +109,21 @@ namespace redrum_not_muckduck_game
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
             }
+        }
+
+        private void AskForAction()
+        {
+            int ROW_WHERE_ACTIONS_START = 5;
+            int COLUMN_WHERE_ACTIONS_START = 2;
+            for (int i = 0; i < Actions.Length; i++)
+            {
+                for (int j = 0; j < Actions[i].Length; j++)
+                {
+                    Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Actions[i][j];
+                }
+                ROW_WHERE_ACTIONS_START++;
+            }
+            Board.Render();
         }
 
         private void LeaveTheRoom()
