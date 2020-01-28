@@ -112,9 +112,11 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
+            List<string> listOfRooms = new List<string>();
             Console.Write("You have the choice to go to: ");
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {
+                listOfRooms.Add(CurrentRoom.AdjacentRoom[i].RoomName.ToLower()); 
                 Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
             }
             Console.WriteLine();
