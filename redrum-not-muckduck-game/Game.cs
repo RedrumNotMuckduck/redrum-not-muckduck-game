@@ -15,6 +15,7 @@ namespace redrum_not_muckduck_game
         public static Room CurrentRoom { get; set; }
         public Board Board = new Board(); 
         public static int NUMBER_OF_LIVES { get; set; } = 3;
+        public static int NUMBER_OF_ITEMS { get; set; } = 0;
         private bool IsGameOver = false; 
 
         public Game()
@@ -22,19 +23,19 @@ namespace redrum_not_muckduck_game
             Accounting = new Room(
                "Accounting",
                "Angela's cat, Bandit",
-               "Oscar: I am going into the ceiling"
+               "Oscar: \"I am going into the ceiling\""
                );
             CurrentRoom = Accounting;
             Sales = new Room(
                "Sales",
                "a random torch",
-               "Andy: This would never happen at Cornell"
+               "Andy: \"This would never happen at Cornell\""
                );
 
             Kitchen = new Room(
                 "Kitchen",
                 "Oscar falling out of ceiling",
-                "Phyllis: I saw Dwight came from the break room"
+                "Phyllis: \"I saw Dwight came from the break room\""
                 );
 
             Breakroom = new Room(
@@ -46,12 +47,12 @@ namespace redrum_not_muckduck_game
             Reception = new Room(
                 "Reception",
                 "nothing",
-                "Pam: the door is locked"
+                "Pam: \"The door is locked\""
                 );
             Annex = new Room(
-                "The Annex",
+                "Annex",
                 "beet stained cigs, warning label 'could cause fire'",
-                "Kelly: Why does Dwight have a blow horn?"
+                "Kelly: \"Why does Dwight have a blow horn?\""
                 );
 
             Accounting.AdjacentRoom = new List<Room> { Sales };
@@ -64,11 +65,9 @@ namespace redrum_not_muckduck_game
 
         public void PlayGame()
         {
-            Board.AddItemToFoundItems();
-            Board.UpdateCurrentPlayerLocation("Melissa");
-            Board.Render();
+            Board.UpdateCurrentPlayerLocation();
 
-            Console.WriteLine("Welcome to the Office");
+            Console.WriteLine("Welcome to the Office!");
 
             while (!IsGameOver)
             {
@@ -78,10 +77,9 @@ namespace redrum_not_muckduck_game
 
         private void UserTurn()
         {
-            string userChoice = "";
             Console.WriteLine("You can explore, talk to someone, leave the current room, or quit playing");
-            Console.WriteLine("> ");
-            userChoice = Console.ReadLine().ToLower();
+            Console.Write("> ");
+            string userChoice = Console.ReadLine().ToLower();
             Console.WriteLine();
 
             switch (userChoice)
@@ -90,16 +88,23 @@ namespace redrum_not_muckduck_game
                     LeaveTheRoom();
                     break;
                 case "explore":
+                    Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
+                    NUMBER_OF_ITEMS++;
+                    //TODO: add function to handle when nothing is in the room/when item is already found
+                    Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
                     break;
                 case "talk":
+                    Board.Render();
                     Console.WriteLine(CurrentRoom.PersonInRoom);
                     break;
                 case "quit":
-                    IsGameOver = !IsGameOver; 
+                    IsGameOver = !IsGameOver;
+                    Console.Clear();
                     Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
                 default:
+                    Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
             }
@@ -112,9 +117,12 @@ namespace redrum_not_muckduck_game
             {
                 Console.Write($"{CurrentRoom.AdjacentRoom[i].RoomName} ");
             }
+            Console.WriteLine("> ");
             // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
+            Board.ClearCurrentRoom();
             UpdateCurrentRoom(nextRoom);
+            Board.UpdateCurrentPlayerLocation();
         }
 
         private void UpdateCurrentRoom(string nextRoom) 
