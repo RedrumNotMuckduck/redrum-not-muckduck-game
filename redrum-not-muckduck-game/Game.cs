@@ -67,7 +67,7 @@ namespace redrum_not_muckduck_game
         public void PlayGame()
         {
             Board.UpdateCurrentPlayerLocation();
-
+            AskForAction();
             Console.WriteLine("Welcome to the Office!");
 
             while (!IsGameOver)
@@ -78,7 +78,6 @@ namespace redrum_not_muckduck_game
 
         private void UserTurn()
         {
-            AskForAction();
             Console.Write("> ");
             string userChoice = Console.ReadLine().ToLower();
             Console.WriteLine();

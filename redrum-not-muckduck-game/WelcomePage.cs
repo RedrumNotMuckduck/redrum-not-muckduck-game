@@ -38,7 +38,7 @@ namespace redrum_not_muckduck_game
             Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
             if (IsWindows)
             {
-                Sound.PlaySound("Theme.mp4", 1000);
+                //Sound.PlaySound("Theme.mp4", 1000);
             }
             
             TypeLine("Come on an adventure.. If you dare..");
