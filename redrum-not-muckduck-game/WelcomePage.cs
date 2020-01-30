@@ -7,59 +7,72 @@ namespace redrum_not_muckduck_game
     {
         public static void AcsiiArt()
         {
-            Console.WriteLine("  ██▀███  ▓█████ ▓█████▄ ▄▄▄█████▓ █    ██  ███▄ ▄███▓  ");
-            Console.WriteLine(" ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓  ██▒ ██▒██  ▓██▒▓██▒▀█▀ ██▒  ");
-            Console.WriteLine(" ▓██ ░▄█ ▒▒███   ░██   █▌▒ ▓██░ ▓░ ██  ▒██░▓██    ▓██░  ");
-            Console.WriteLine(" ▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌░ ▓██▀▀█▄ ▓█  ░██░▒██    ▒██   ");
-            Console.WriteLine(" ░██▓ ▒██▒░▒████▒░▒████▓   ▒██▒ ░██▒█████▓ ▒██▒   ░██▒  ");
-            Console.WriteLine(" ░ ▒▓ ░▒▓░░░ ▒░ ░ ▒▒▓  ▒   ▒ ░░   ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░  ");
-            Console.WriteLine("   ░▒ ░ ▒░ ░ ░  ░ ░ ▒  ▒     ░    ░░▒░ ░ ░ ░  ░      ░  ");
-            Console.WriteLine("   ░░   ░    ░    ░ ░  ░   ░       ░░░ ░ ░ ░      ░     ");
-            Console.WriteLine("        ███▄    █  ▒█████  ▄▄▄█████▓");
-            Console.WriteLine("        ██ ▀█   █ ▒██▒  ██▒▓  ██▒ ▓▒");
-            Console.WriteLine("       ▓██  ▀█ ██▒▒██░  ██▒▒ ▓██░ ▒░");
-            Console.WriteLine("       ▓██▒  ▐▌██▒▒██   ██░░ ▓██▓ ░ ");
-            Console.WriteLine("       ▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ");
-            Console.WriteLine("       ░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ");
-            Console.WriteLine("       ░ ░░   ░ ▒░  ░ ▒ ▒░     ░    ");
-            Console.WriteLine(" ███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀");
-            Console.WriteLine("▓██▒▀█▀ ██▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ");
-            Console.WriteLine("▓██    ▓██░▓██  ▒██░▒▓█    ▄ ▓███▄░ ░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░ ");
-            Console.WriteLine("▒██    ▒██ ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ");
-            Console.WriteLine("▒██▒   ░██▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄");
-            Console.WriteLine("░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒");
-            Console.WriteLine("░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
-            Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
-       
-            TypeLine("Come on an adventure.. If you dare..", 150);
-            Console.WriteLine();
-            TypeLine("Press any key to continue...", 150);
+            Console.WriteLine("");
+            Console.WriteLine("      ██▀███  ▓█████ ▓█████▄ ▄▄▄█████▓ █    ██  ███▄ ▄███▓  ");
+            Console.WriteLine("     ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓  ██▒ ██▒██  ▓██▒▓██▒▀█▀ ██▒  ");
+            Console.WriteLine("     ▓██ ░▄█ ▒▒███   ░██   █▌▒ ▓██░ ▓░ ██  ▒██░▓██    ▓██░  ");
+            Console.WriteLine("     ▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌░ ▓██▀▀█▄ ▓█  ░██░▒██    ▒██   ");
+            Console.WriteLine("     ░██▓ ▒██▒░▒████▒░▒████▓   ▒██▒ ░██▒█████▓ ▒██▒   ░██▒  ");
+            Console.WriteLine("     ░ ▒▓ ░▒▓░░░ ▒░ ░ ▒▒▓  ▒   ▒ ░░   ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░  ");
+            Console.WriteLine("       ░▒ ░ ▒░ ░ ░  ░ ░ ▒  ▒     ░    ░░▒░ ░ ░ ░  ░      ░  ");
+            Console.WriteLine("       ░░   ░    ░    ░ ░  ░   ░       ░░░ ░ ░ ░      ░     ");
+            Console.WriteLine("            ███▄    █  ▒█████  ▄▄▄█████▓");
+            Console.WriteLine("            ██ ▀█   █ ▒██▒  ██▒▓  ██▒ ▓▒");
+            Console.WriteLine("           ▓██  ▀█ ██▒▒██░  ██▒▒ ▓██░ ▒░");
+            Console.WriteLine("           ▓██▒  ▐▌██▒▒██   ██░░ ▓██▓ ░ ");
+            Console.WriteLine("           ▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ");
+            Console.WriteLine("           ░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ");
+            Console.WriteLine("           ░ ░░   ░ ▒░  ░ ▒ ▒░     ░    ");
+            Console.WriteLine("     ███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀");
+            Console.WriteLine("    ▓██▒▀█▀ ██▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ");
+            Console.WriteLine("    ▓██    ▓██░▓██  ▒██░▒▓█    ▄ ▓███▄░ ░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░ ");
+            Console.WriteLine("    ▒██    ▒██ ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ");
+            Console.WriteLine("    ▒██▒   ░██▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄");
+            Console.WriteLine("    ░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒");
+            Console.WriteLine("    ░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
+            Console.WriteLine("    ░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
 
-            if (Console.ReadKey().Key != ConsoleKey.Escape)
-            {
+            TypeByLetter("    Come on an adventure.. If you dare..", 150);
+            Console.WriteLine();
+            TypeByLetter("    Press any key to continue...", 150);
+
+            Console.ReadKey(true);
                 Console.Clear();
                 StoryIntro();
+        }
+
+        static void TypeByLetter(string line, int milliseconds)
+        {
+            for (int i = 0; i < line.Length; i++)
+            {
+                Console.Write(line[i]);
+                Thread.Sleep(milliseconds);
             }
         }
 
         public static void StoryIntro()
         {
-            TypeLine("Those M&Ms look good. I wonder how many I can stuff in my mouth. As \n" +
-                     "you strategically place M&Ms on your tongue you notice it smells like \n" +
-                     "a campfire, you crave smores. Looking around you see smoke coming \n" +
-                     "into the office from all directions. You are trapped in the office! \n" +
-                     "To escape you must find WHO started the fire, WHAT started the fire, \n" +
-                     "& WHERE the fire was started. After gathering as much information \n" +
-                     "possible head to the reception area to show Michael what you have \n" +
-                     "found. Be careful, an incorrect guess will lose you a life.", 70);
+            TypeByElement();
         }
 
-        static void TypeLine(string line, int mili)
+        public static string[] intro = { "\n    Those M&Ms look good. I wonder how many I can stuff in my mouth.",
+        "    As you strategically place M&Ms on your tongue,",
+        "\t    you notice it smells like a campfire... you crave smores.",
+        "    Looking around you see smoke coming into the office from all directions. ",
+        "\n\t\t    You are trapped in the office!",
+        "\n    To escape you must find WHO started the fire,", "" +
+        "\t    WHAT started the fire,",
+        "\t\t    & WHERE the fire was started.",
+        "    After gathering as much information possible head to the reception area,", 
+        "\t    to show Michael what you have found.",
+        "    Be careful, an incorrect guess will lose you a life"};
+
+        static void TypeByElement()
         {
-            for (int i = 0; i < line.Length; i++)
+            for (int i = 0; i < intro.Length; i++)
             {
-                Console.Write(line[i]);
-                Thread.Sleep(mili);
+                Console.WriteLine(intro[i]);
+                Console.ReadKey(true);
             }
         }
 
