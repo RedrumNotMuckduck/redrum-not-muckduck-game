@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace redrum_not_muckduck_game
@@ -13,17 +12,17 @@ namespace redrum_not_muckduck_game
         public Room Breakroom { get; set; }
         public Room Reception { get; set; }
         public Room Annex { get; set; }
+        public Room Exit { get; set; }
         public static Room CurrentRoom { get; set; }
-        public Board Board = new Board();
-        public Render Render = new Render(); 
-        public static int NUMBER_OF_LIVES { get; set; } = 3;
-        public static int NUMBER_OF_ITEMS { get; set; } = 0;
-        private bool IsGameOver = false;
+        public static Board Board = new Board();
+        public static Render Render = new Render();
+        public static Solution Solution = new Solution();
+        public static int Number_of_Lives { get; set; } = 3;
+        public static int Number_of_Items { get; set; } = 0;
+        public static bool IsGameOver = false;
         public static string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
-
-     
     public Game()
         {
             Accounting = new Room(
@@ -31,25 +30,21 @@ namespace redrum_not_muckduck_game
                "Angela's cat, Bandit",
                "Oscar: \"I am going into the ceiling\""
                );
-            CurrentRoom = Accounting;
             Sales = new Room(
                "Sales",
                "a random torch",
                "Andy: \"This would never happen at Cornell\""
                );
-
             Kitchen = new Room(
                 "Kitchen",
                 "Oscar falling out of ceiling",
                 "Phyllis: \"I saw Dwight came from the break room\""
                 );
-
             Breakroom = new Room(
                 "Breakroom",
                 "vending machine",
                 "No one is here"
                 );
-
             Reception = new Room(
                 "Reception",
                 "nothing",
@@ -60,6 +55,8 @@ namespace redrum_not_muckduck_game
                 "beet stained cigs",
                 "Kelly: \"Why does Dwight have a blow horn?\""
                 );
+
+            CurrentRoom = Accounting;
 
             Accounting.AdjacentRoom = new List<Room> { Sales };
             Sales.AdjacentRoom = new List<Room> { Reception, Accounting, Kitchen };
@@ -72,7 +69,7 @@ namespace redrum_not_muckduck_game
     public void Play()
         {
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
-            WelcomePage.AcsiiArt();
+            //WelcomePage.AcsiiArt();
             Board.UpdateCurrentPlayerLocation();
             Render.Action();
             Board.Render();
@@ -82,10 +79,9 @@ namespace redrum_not_muckduck_game
             {
                 UserTurn();
             }
+            WelcomePage.EndScene();
         }
 
-       
-               
     private void UserTurn()
         {
             Console.Write("> ");
@@ -104,7 +100,7 @@ namespace redrum_not_muckduck_game
                     Render.DeleteQuote();
                     Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
-                    NUMBER_OF_ITEMS++;
+                    Number_of_Items++;
                     //TODO: add function to handle when nothing is in the room/when item is already found
                     Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
                     Board.Render();
@@ -127,18 +123,24 @@ namespace redrum_not_muckduck_game
             }
         }
 
-
         private void LeaveTheRoom()
         {
-            Render.AdjacentRooms();
-            Board.Render();
-            Console.Write("> ");
-            // TODO: error handling for user input 
-            string nextRoom = Console.ReadLine().ToLower();
-            Render.DeleteAdjacentRooms();
-            Board.ClearCurrentRoom();
-            UpdateCurrentRoom(nextRoom);
-            Board.UpdateCurrentPlayerLocation();
+            if (CurrentRoom.RoomName == "Reception")
+            {
+                Solution.CheckSolution();
+            }
+            else
+            {
+                Render.AdjacentRooms();
+                Board.Render();
+                Console.Write("> ");
+                // TODO: error handling for user input 
+                string nextRoom = Console.ReadLine().ToLower();
+                Render.DeleteAdjacentRooms();
+                Board.ClearCurrentRoom();
+                UpdateCurrentRoom(nextRoom);
+                Board.UpdateCurrentPlayerLocation();
+            }
         }
 
         private void UpdateCurrentRoom(string nextRoom) 
@@ -150,15 +152,6 @@ namespace redrum_not_muckduck_game
                     CurrentRoom = CurrentRoom.AdjacentRoom[i];
                 }
             }
-        }
-
-        public void LoseALife()
-        {
-            int COLUMN_WHERE_HEARTS_START = 49;
-            int ROW_WHERE_HEARTS_START = 2;
-            int COLUMN_TO_DELETE_HEART_FROM = NUMBER_OF_LIVES + COLUMN_WHERE_HEARTS_START;
-            Board.board[ROW_WHERE_HEARTS_START, COLUMN_TO_DELETE_HEART_FROM] = ' ';
-            NUMBER_OF_LIVES -= NUMBER_OF_LIVES;
         }
     }
 }

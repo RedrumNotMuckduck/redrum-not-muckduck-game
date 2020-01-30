@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace redrum_not_muckduck_game
 {
@@ -9,8 +7,7 @@ namespace redrum_not_muckduck_game
         public string RoomName { get; set; }
         public string ItemInRoom { get; set; }
         public string PersonInRoom { get; set; }
-
-        public List<Room> AdjacentRoom;
+        public List<Room> AdjacentRoom { get; set; }
 
         public Room(string roomName, string itemInRoom, string personInRoom)
         {
