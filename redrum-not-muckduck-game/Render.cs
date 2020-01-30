@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace redrum_not_muckduck_game
+﻿namespace redrum_not_muckduck_game
 {
     class Render
     {
@@ -54,7 +50,6 @@ namespace redrum_not_muckduck_game
             {
                 Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = ' ';
             }
-
         }
 
         public void Quote()
@@ -64,7 +59,6 @@ namespace redrum_not_muckduck_game
             for (int i = 0; i < Game.CurrentRoom.PersonInRoom.Length; i++)
             {
                 Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = Game.CurrentRoom.PersonInRoom[i];
-
             }
         }
 
@@ -79,6 +73,27 @@ namespace redrum_not_muckduck_game
                     Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Game.Actions[i][j];
                 }
                 ROW_WHERE_ACTIONS_START++;
+            }
+        }
+
+        public void AskForSolution(string question)
+        {
+            int ROW_WHERE_QUESITON_STARTS = 14;
+            int COLUMN_WHERE_QUESTION_STARTS = 1;
+            for (int i = 0; i < question.Length; i++)
+            {
+                Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = question[i];
+            }
+        }
+
+        public void DeleteQuestion()
+        {
+            int ROW_WHERE_QUESITON_STARTS = 14;
+            int COLUMN_WHERE_QUESTION_STARTS = 1;
+            int COLUMN_WHERE_QUESTION_ENDS = 48;
+            for (int i = 0; i < COLUMN_WHERE_QUESTION_ENDS; i++)
+            {
+                Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = ' ';
             }
         }
     }
