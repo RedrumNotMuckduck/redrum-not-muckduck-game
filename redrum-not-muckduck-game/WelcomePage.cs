@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NAudio.Wave;
 using System.Threading;
-using System.Runtime.InteropServices;
 
 namespace redrum_not_muckduck_game
 {
     class WelcomePage
     {
-        public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         public static void AcsiiArt()
         {
-
             Console.WriteLine("  ██▀███  ▓█████ ▓█████▄ ▄▄▄█████▓ █    ██  ███▄ ▄███▓  ");
             Console.WriteLine(" ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓  ██▒ ██▒██  ▓██▒▓██▒▀█▀ ██▒  ");
             Console.WriteLine(" ▓██ ░▄█ ▒▒███   ░██   █▌▒ ▓██░ ▓░ ██  ▒██░▓██    ▓██░  ");
@@ -36,16 +30,12 @@ namespace redrum_not_muckduck_game
             Console.WriteLine("░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒");
             Console.WriteLine("░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
             Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
-            if (IsWindows)
-            {
-                Sound.PlaySound("Theme.mp4", 1000);
-            }
-
+       
             TypeLine("Come on an adventure.. If you dare..", 150);
             Console.WriteLine();
             TypeLine("Press any key to continue...", 150);
 
-            while (Console.ReadKey().Key != ConsoleKey.Escape)
+            if (Console.ReadKey().Key != ConsoleKey.Escape)
             {
                 Console.Clear();
                 StoryIntro();
@@ -62,12 +52,6 @@ namespace redrum_not_muckduck_game
                      "& WHERE the fire was started. After gathering as much information \n" +
                      "possible head to the reception area to show Michael what you have \n" +
                      "found. Be careful, an incorrect guess will lose you a life.", 70);
-
-            while (Console.ReadKey().Key != ConsoleKey.Escape)
-            {
-                Game game = new Game();
-                game.PlayGame();
-            }
         }
 
         static void TypeLine(string line, int mili)
@@ -78,27 +62,6 @@ namespace redrum_not_muckduck_game
                 Thread.Sleep(mili);
             }
         }
-    }
-
-    public static class Sound
-    {
-        internal static AudioFileReader audioFile;
-        internal static WaveOutEvent outputDevice;
-
-        internal static void PlaySound(string musicFile, int milliSeconds = 0)
-        {
-            audioFile = new AudioFileReader(musicFile);
-            outputDevice = new WaveOutEvent();
-            outputDevice.Init(audioFile);
-            outputDevice.Play();
-            Thread.Sleep(milliSeconds);
-        }
-
-        internal static void DisposeAudio()
-        {
-            audioFile.Dispose();
-            outputDevice.Dispose();
-        }
-    }
+    }  
 }
 
