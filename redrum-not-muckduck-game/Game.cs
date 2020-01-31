@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing; 
-using Console = Colorful.Console; 
+using System.Drawing;
+using Console = Colorful.Console;
 
 
 namespace redrum_not_muckduck_game
@@ -26,35 +26,46 @@ namespace redrum_not_muckduck_game
         public static string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
-    public Game()
+        public Game()
         {
             Accounting = new Room(
                "Accounting",
+               "Your desk is covered in M&Ms.  " +
+               "*Oscar is trying to find an exit.  " +
+               "*Out of the corner of your eye, you " +
+               "*see a drawer slowly open. ",
                "Angela's cat, Bandit",
                "Oscar: \"I am going into the ceiling\""
                );
             Sales = new Room(
                "Sales",
+               "Chaos ensues as the smoke thickens. " +
+               "Andy is frantically running in circles and knocks over his " +
+               "trash can, something makes a thud sound as it falls out.",
                "a random torch",
                "Andy: \"This would never happen at Cornell\""
                );
             Kitchen = new Room(
                 "Kitchen",
+                " ",
                 "Oscar falling out of ceiling",
                 "Phyllis: \"I saw Dwight came from the break room\""
                 );
             Breakroom = new Room(
                 "Breakroom",
+                " ",
                 "vending machine",
                 "No one is here"
                 );
             Reception = new Room(
                 "Reception",
+                " ",
                 "nothing",
                 "Pam: \"The door is locked\""
                 );
             Annex = new Room(
                 "Annex",
+                " ",
                 "beet stained cigs",
                 "Kelly: \"Why does Dwight have a blow horn?\""
                 );
@@ -69,12 +80,13 @@ namespace redrum_not_muckduck_game
             Breakroom.AdjacentRoom = new List<Room> { Annex };
         }
 
-    public void Play()
+        public void Play()
         {
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
             //WelcomePage.AcsiiArt();
             Board.UpdateCurrentPlayerLocation();
             Render.Action();
+            Render.SceneDescription();
             Board.Render();
             Console.WriteLine("Welcome to the Office!");
 
@@ -85,7 +97,7 @@ namespace redrum_not_muckduck_game
             WelcomePage.EndScene();
         }
 
-    private void UserTurn()
+        private void UserTurn()
         {
             Console.Write("> ");
             string userChoice = Console.ReadLine().ToLower();
@@ -152,7 +164,7 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        private void UpdateCurrentRoom(string nextRoom) 
+        private void UpdateCurrentRoom(string nextRoom)
         {
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {

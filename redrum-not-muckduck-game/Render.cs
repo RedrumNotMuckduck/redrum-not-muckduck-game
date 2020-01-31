@@ -96,5 +96,28 @@
                 Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = ' ';
             }
         }
+
+        public void SceneDescription()
+        {
+            int ROW_WHERE_SCENE_STARTS = 14;
+            int COLUMN_WHERE_SCENE_STARTS = 2;
+            int currentLetter = 0;
+
+            for (int i = 0; i < Game.CurrentRoom.Description.Length; i++)
+            {
+                // * Asterisk represents a new line 
+                //  If statement increases row, restarts the column, & currentLetter
+                //  so that the description is rendered on the next line.
+                if (Game.CurrentRoom.Description[i] == '*')
+                {
+                    i++;
+                    ROW_WHERE_SCENE_STARTS++;
+                    COLUMN_WHERE_SCENE_STARTS = 2;
+                    currentLetter = 0;
+                }
+                Board.board[ROW_WHERE_SCENE_STARTS, COLUMN_WHERE_SCENE_STARTS + currentLetter] = Game.CurrentRoom.Description[i];
+                currentLetter++;
+            }
+        }
     }
 }
