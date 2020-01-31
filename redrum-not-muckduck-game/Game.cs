@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing;
+using System.Drawing; 
 using Console = Colorful.Console;
 
 
@@ -179,7 +179,7 @@ namespace redrum_not_muckduck_game
                 }
             }
         }
-
+      
         private void CheckIfItemHasBeenFound()
         {
             if (CurrentRoom.HasItem)
