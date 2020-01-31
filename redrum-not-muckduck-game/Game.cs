@@ -35,7 +35,8 @@ namespace redrum_not_muckduck_game
                "*Out of the corner of your eye, you " +
                "*see a drawer slowly open. ",
                "Angela's cat, Bandit",
-               "Oscar: \"I am going into the ceiling\""
+               "Oscar: \"I am going into the ceiling\"",
+               true
                );
             Sales = new Room(
                "Sales",
@@ -43,31 +44,35 @@ namespace redrum_not_muckduck_game
                "Andy is frantically running in circles and knocks over his " +
                "trash can, something makes a thud sound as it falls out.",
                "a random torch",
-               "Andy: \"This would never happen at Cornell\""
+               "Andy: \"This would never happen at Cornell\"",
+               true
                );
             Kitchen = new Room(
                 "Kitchen",
                 " ",
                 "Oscar falling out of ceiling",
-                "Phyllis: \"I saw Dwight came from the break room\""
+                "Phyllis: \"I saw Dwight came from the break room\"",
+                false
                 );
             Breakroom = new Room(
                 "Breakroom",
                 " ",
                 "vending machine",
-                "No one is here"
+                "No one is here",
+                false
                 );
             Reception = new Room(
                 "Reception",
-                " ",
-                "nothing",
-                "Pam: \"The door is locked\""
+                "no item",
+                "Pam: \"The door is locked\"",
+                false
                 );
             Annex = new Room(
                 "Annex",
                 " ",
                 "beet stained cigs",
-                "Kelly: \"Why does Dwight have a blow horn?\""
+                "Kelly: \"Why does Dwight have a blow horn?\"",
+                true
                 );
 
             CurrentRoom = Accounting;
@@ -106,23 +111,19 @@ namespace redrum_not_muckduck_game
             switch (userChoice)
             {
                 case "leave":
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     LeaveTheRoom();
                     Board.Render();
                     break;
                 case "explore":
-                    Render.DeleteAdjacentRooms();
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
-                    Number_of_Items++;
-                    //TODO: add function to handle when nothing is in the room/when item is already found
-                    Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                    CheckIfItemHasBeenFound();
                     Board.Render();
                     break;
                 case "talk":
-                    Render.DeleteAdjacentRooms();
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     Render.Quote();
                     Board.Render();
                     break;
@@ -146,9 +147,10 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
-            if (CurrentRoom.RoomName == "Reception")
+            if (CurrentRoom.Name == "Reception")
             {
                 Solution.CheckSolution();
+                Solution.CheckHealth();
             }
             else
             {
@@ -157,7 +159,7 @@ namespace redrum_not_muckduck_game
                 Console.Write("> ");
                 // TODO: error handling for user input 
                 string nextRoom = Console.ReadLine().ToLower();
-                Render.DeleteAdjacentRooms();
+                Render.DeleteScene();
                 Board.ClearCurrentRoom();
                 UpdateCurrentRoom(nextRoom);
                 Board.UpdateCurrentPlayerLocation();
@@ -168,10 +170,20 @@ namespace redrum_not_muckduck_game
         {
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {
-                if (nextRoom == CurrentRoom.AdjacentRoom[i].RoomName.ToLower())
+                if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
                 {
                     CurrentRoom = CurrentRoom.AdjacentRoom[i];
                 }
+            }
+        }
+
+        private void CheckIfItemHasBeenFound()
+        {
+            if (CurrentRoom.HasItem)
+            {
+                Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                CurrentRoom.HasItem = !CurrentRoom.HasItem;
+                Number_of_Items++;
             }
         }
     }
