@@ -5,14 +5,14 @@ namespace redrum_not_muckduck_game
 {
     public class Solution
     {
-        public string[] Solutions = new string[] { "dwight", "beet stained cigs", "break room" };
+        public string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
 
         public void CheckSolution()
         {
             string[] questions = new string[] { "Michael: \"Who did it?\"", "Michael: \"What did they use?\"", "Michael: \"Where did it happen?\"" };
             for (int i = 0; i < Solutions.Length; i++)
             {
-                Game.Render.DeleteQuestion();
+                Game.Render.DeleteScene();
                 Game.Render.AskForSolution(questions[i]);
                 Game.Board.Render();
                 Console.Write("> ");
@@ -31,19 +31,27 @@ namespace redrum_not_muckduck_game
 
         private void WrongGuess()
         {
-            Game.Render.DeleteQuestion();
+            Game.Render.DeleteScene();
             Game.Render.AskForSolution("That sounds off, try again");
             Game.Board.Render();
             Thread.Sleep(1000);
-            Game.Render.DeleteQuestion();
+            Game.Render.DeleteScene();
             Game.Board.Render();
         }
 
         private void RightGuess()
         {
-            Game.Render.DeleteQuestion();
+            Game.Render.DeleteScene();
             Game.Render.AskForSolution("Thats right!");
             Game.Board.Render();
+        }
+
+        public void CheckHealth()
+        {
+            if (Game.Number_of_Lives == 0)
+            {
+                Game.IsGameOver = true;
+            }
         }
 
         private void LoseALife()

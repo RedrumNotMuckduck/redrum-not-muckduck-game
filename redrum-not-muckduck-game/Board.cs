@@ -46,7 +46,7 @@ namespace redrum_not_muckduck_game
 
         public void AddItemToFoundItems(string foundItem)
         {
-            int ROW_WHERE_ITEMS_START = 7;
+            int ROW_WHERE_ITEMS_START = 8;
             int COLUMN_WHERE_ITEMS_START = 50;
             int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
             for (int i = 0; i < foundItem.Length; i++)
@@ -59,7 +59,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < Game.CurrentRoom.RoomName.Length; i++)
+            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
             {
                 board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
             }
@@ -69,11 +69,9 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
-            
-            
-            for (int j = 0; j < Game.CurrentRoom.RoomName.Length; j++)
+            for (int j = 0; j < Game.CurrentRoom.Name.Length; j++)
             {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.RoomName[j];
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.Name[j];
             }
         }
 

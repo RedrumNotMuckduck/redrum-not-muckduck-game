@@ -14,41 +14,11 @@
             ROW_WHERE_OPTIONS_START++;
             foreach (Room room in Game.CurrentRoom.AdjacentRoom)
             {
-                for (int i = 0; i < room.RoomName.Length; i++)
+                for (int i = 0; i < room.Name.Length; i++)
                 {
-                    Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = room.RoomName[i];
+                    Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = room.Name[i];
                 }
                 ROW_WHERE_OPTIONS_START++;
-            }
-        }
-
-        public void DeleteAdjacentRooms()
-        {
-            int ROW_WHERE_OPTIONS_START = 14;
-            int COLUMN_WHERE_OPTIONS_START = 2;
-            string header = "You have the choice to go to: ";
-            for (int i = 0; i < header.Length; i++)
-            {
-                Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = ' ';
-            }
-            ROW_WHERE_OPTIONS_START++;
-            foreach (Room room in Game.CurrentRoom.AdjacentRoom)
-            {
-                for (int i = 0; i < room.RoomName.Length; i++)
-                {
-                    Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = ' ';
-                }
-                ROW_WHERE_OPTIONS_START++;
-            }
-        }
-
-        public void DeleteQuote()
-        {
-            int ROW_WHERE_QUOTE_STARTS = 14;
-            int COLUMN_WHERE_QUOTE_STARTS = 1;
-            for (int i = 0; i < Game.CurrentRoom.PersonInRoom.Length; i++)
-            {
-                Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = ' ';
             }
         }
 
@@ -86,14 +56,41 @@
             }
         }
 
-        public void DeleteQuestion()
+        public void DeleteScene()
         {
-            int ROW_WHERE_QUESITON_STARTS = 14;
-            int COLUMN_WHERE_QUESTION_STARTS = 1;
-            int COLUMN_WHERE_QUESTION_ENDS = 48;
-            for (int i = 0; i < COLUMN_WHERE_QUESTION_ENDS; i++)
+            int ROW_SCENE_ENDS = 20;
+            int COL_SCENCE_STARTS = 1;
+            int COL_SCENCE_ENDS = 48;
+
+            for (int ROW_SCENE_STARTS = 14; ROW_SCENE_STARTS < ROW_SCENE_ENDS; ROW_SCENE_STARTS++)
             {
-                Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = ' ';
+                for (int col = 0; col < COL_SCENCE_ENDS; col++)
+                {
+                    Board.board[ROW_SCENE_STARTS, COL_SCENCE_STARTS + col] = ' ';
+                }
+            }
+        }
+
+        public void SceneDescription()
+        {
+            int ROW_WHERE_SCENE_STARTS = 14;
+            int COLUMN_WHERE_SCENE_STARTS = 2;
+            int currentLetter = 0;
+
+            for (int i = 0; i < Game.CurrentRoom.Description.Length; i++)
+            {
+                // * Asterisk represents a new line 
+                //  If statement increases row, restarts the column, & currentLetter
+                //  so that the description is rendered on the next line.
+                if (Game.CurrentRoom.Description[i] == '*')
+                {
+                    i++;
+                    ROW_WHERE_SCENE_STARTS++;
+                    COLUMN_WHERE_SCENE_STARTS = 2;
+                    currentLetter = 0;
+                }
+                Board.board[ROW_WHERE_SCENE_STARTS, COLUMN_WHERE_SCENE_STARTS + currentLetter] = Game.CurrentRoom.Description[i];
+                currentLetter++;
             }
         }
     }
