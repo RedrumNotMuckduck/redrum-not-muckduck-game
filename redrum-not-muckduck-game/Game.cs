@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Drawing; 
+using Console = Colorful.Console; 
+
 
 namespace redrum_not_muckduck_game
 {
@@ -120,6 +122,12 @@ namespace redrum_not_muckduck_game
                     Console.Clear();
                     Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
+                case "help":
+                    Console.WriteLine("In order to escape you must find WHO started the fire, WHAT started the fire, \n" +
+                     "& WHERE the fire was started. After gathering as much information \n" +
+                     "possible head to the reception area to show Michael what you have found.\n" +
+                     "Your options for naviagting in the rooms are: (explore, talk, leave, quit)", Color.Red);
+                    break;
                 default:
                     Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
@@ -127,6 +135,7 @@ namespace redrum_not_muckduck_game
             }
         }
 
+   
 
         private void LeaveTheRoom()
         {
