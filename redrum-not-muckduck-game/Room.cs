@@ -4,7 +4,7 @@ namespace redrum_not_muckduck_game
 {
     class Room
     {
-        public string RoomName { get; set; }
+        public string Name { get; set; }
         public string ItemInRoom { get; set; }
         public string PersonInRoom { get; set; }
         public bool HasItem { get; set; }
@@ -12,7 +12,7 @@ namespace redrum_not_muckduck_game
 
         public Room(string roomName, string itemInRoom, string personInRoom, bool hasItem)
         {
-            RoomName = roomName; 
+            Name = roomName; 
             ItemInRoom = itemInRoom;
             PersonInRoom = personInRoom;
             HasItem = hasItem;

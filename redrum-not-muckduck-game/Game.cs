@@ -100,21 +100,19 @@ namespace redrum_not_muckduck_game
             switch (userChoice)
             {
                 case "leave":
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     LeaveTheRoom();
                     Board.Render();
                     break;
                 case "explore":
-                    Render.DeleteAdjacentRooms();
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
                     CheckIfItemHasBeenFound();
                     Board.Render();
                     break;
                 case "talk":
-                    Render.DeleteAdjacentRooms();
-                    Render.DeleteQuote();
+                    Render.DeleteScene();
                     Render.Quote();
                     Board.Render();
                     break;
@@ -138,7 +136,7 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
-            if (CurrentRoom.RoomName == "Reception")
+            if (CurrentRoom.Name == "Reception")
             {
                 Solution.CheckSolution();
                 Solution.CheckHealth();
@@ -150,7 +148,7 @@ namespace redrum_not_muckduck_game
                 Console.Write("> ");
                 // TODO: error handling for user input 
                 string nextRoom = Console.ReadLine().ToLower();
-                Render.DeleteAdjacentRooms();
+                Render.DeleteScene();
                 Board.ClearCurrentRoom();
                 UpdateCurrentRoom(nextRoom);
                 Board.UpdateCurrentPlayerLocation();
@@ -161,7 +159,7 @@ namespace redrum_not_muckduck_game
         {
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {
-                if (nextRoom == CurrentRoom.AdjacentRoom[i].RoomName.ToLower())
+                if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
                 {
                     CurrentRoom = CurrentRoom.AdjacentRoom[i];
                 }
