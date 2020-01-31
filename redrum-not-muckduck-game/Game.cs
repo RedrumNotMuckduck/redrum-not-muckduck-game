@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing; 
-using Console = Colorful.Console; 
+using System.Drawing;
+using Console = Colorful.Console;
 
 
 namespace redrum_not_muckduck_game
@@ -30,24 +30,33 @@ namespace redrum_not_muckduck_game
         {
             Accounting = new Room(
                "Accounting",
+               "Your desk is covered in M&Ms.  " +
+               "*Oscar is trying to find an exit.  " +
+               "*Out of the corner of your eye, you " +
+               "*see a drawer slowly open. ",
                "Angela's cat, Bandit",
                "Oscar: \"I am going into the ceiling\"",
                true
                );
             Sales = new Room(
                "Sales",
+               "Chaos ensues as the smoke thickens. " +
+               "Andy is frantically running in circles and knocks over his " +
+               "trash can, something makes a thud sound as it falls out.",
                "a random torch",
                "Andy: \"This would never happen at Cornell\"",
                true
                );
             Kitchen = new Room(
                 "Kitchen",
+                " ",
                 "Oscar falling out of ceiling",
                 "Phyllis: \"I saw Dwight came from the break room\"",
                 false
                 );
             Breakroom = new Room(
                 "Breakroom",
+                " ",
                 "vending machine",
                 "No one is here",
                 false
@@ -60,6 +69,7 @@ namespace redrum_not_muckduck_game
                 );
             Annex = new Room(
                 "Annex",
+                " ",
                 "beet stained cigs",
                 "Kelly: \"Why does Dwight have a blow horn?\"",
                 true
@@ -81,6 +91,7 @@ namespace redrum_not_muckduck_game
             //WelcomePage.AcsiiArt();
             Board.UpdateCurrentPlayerLocation();
             Render.Action();
+            Render.SceneDescription();
             Board.Render();
             Console.WriteLine("Welcome to the Office!");
 
