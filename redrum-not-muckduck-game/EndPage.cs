@@ -6,6 +6,7 @@ namespace redrum_not_muckduck_game
 {
     class EndPage
     {
+        //TODO Refactor TypeByElement from WelcomePage to Render
         public static string[] WinScene = { "You saved everyone from the fire!",
         "Thanks, Kevin! You deserve some smores.",
         "Hopefully, Dwight will be reprimanded for starting a fire in the office."};

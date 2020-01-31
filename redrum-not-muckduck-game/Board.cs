@@ -27,7 +27,7 @@ namespace redrum_not_muckduck_game
 
         public void AddItemToFoundItems(string foundItem)
         {
-            int ROW_WHERE_ITEMS_START = 7;
+            int ROW_WHERE_ITEMS_START = 8;
             int COLUMN_WHERE_ITEMS_START = 50;
             int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
             for (int i = 0; i < foundItem.Length; i++)

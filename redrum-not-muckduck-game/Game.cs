@@ -41,8 +41,9 @@ namespace redrum_not_muckduck_game
             Sales = new Room(
                "Sales",
                "Chaos ensues as the smoke thickens. " +
-               "Andy is frantically running in circles and knocks over his " +
-               "trash can, something makes a thud sound as it falls out.",
+               "*Andy is frantically running in circles and " +
+               "*knocks over his trash can, something makes " +
+               "*a thud sound as it falls out.",
                "a random torch",
                "Andy: \"This would never happen at Cornell\"",
                true
@@ -51,7 +52,7 @@ namespace redrum_not_muckduck_game
                 "Kitchen",
                 " ",
                 "Oscar falling out of ceiling",
-                "Phyllis: \"I saw Dwight came from the break room\"",
+                "Phyllis: \"I saw Dwight came from the breakroom\"",
                 false
                 );
             Breakroom = new Room(
@@ -63,6 +64,7 @@ namespace redrum_not_muckduck_game
                 );
             Reception = new Room(
                 "Reception",
+                " ",
                 "no item",
                 "Pam: \"The door is locked\"",
                 false
@@ -113,6 +115,7 @@ namespace redrum_not_muckduck_game
                 case "leave":
                     Render.DeleteScene();
                     LeaveTheRoom();
+                    Render.SceneDescription();
                     Board.Render();
                     break;
                 case "explore":

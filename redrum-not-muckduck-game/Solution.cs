@@ -5,7 +5,7 @@ namespace redrum_not_muckduck_game
 {
     public class Solution
     {
-        public string[] Solutions = new string[] { "dwight", "beet stained cigs", "break room" };
+        public string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
 
         public void CheckSolution()
         {
