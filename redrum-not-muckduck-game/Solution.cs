@@ -46,6 +46,14 @@ namespace redrum_not_muckduck_game
             Game.Board.Render();
         }
 
+        public void CheckHealth()
+        {
+            if (Game.Number_of_Lives == 0)
+            {
+                Game.IsGameOver = true;
+            }
+        }
+
         private void LoseALife()
         {
             int COLUMN_WHERE_HEARTS_START = 49;

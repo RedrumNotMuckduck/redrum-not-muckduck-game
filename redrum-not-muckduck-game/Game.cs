@@ -141,6 +141,7 @@ namespace redrum_not_muckduck_game
             if (CurrentRoom.RoomName == "Reception")
             {
                 Solution.CheckSolution();
+                Solution.CheckHealth();
             }
             else
             {
