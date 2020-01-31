@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing;
+using Console = Colorful.Console;
+
 namespace redrum_not_muckduck_game
 {
     public class Board
@@ -19,7 +22,23 @@ namespace redrum_not_muckduck_game
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    Console.Write(board[row, column]);
+                  
+                    if(row == 1 && column > 15 && column < 30)
+                    {
+                        Console.Write(board[row, column], Color.Orange);
+                    }
+                    else if (row == 2 && column > 49 && column < 70)
+                    {
+                        Console.Write(board[row, column], Color.Red);
+                    }
+                    else if (row > 4 && row < 10 && column > 1 && column < 25) 
+                    {
+                        Console.Write(board[row, column], Color.Yellow); 
+                    }
+                    else
+                    {
+                        Console.Write(board[row, column]);
+                    }
                 }
                 Console.WriteLine();
             }
@@ -50,6 +69,8 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
+            
+            
             for (int j = 0; j < Game.CurrentRoom.RoomName.Length; j++)
             {
                 board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.RoomName[j];
