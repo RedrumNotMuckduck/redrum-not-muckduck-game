@@ -20,6 +20,7 @@
     <Compile Remove="Location.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.10" />
     <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 </Project>

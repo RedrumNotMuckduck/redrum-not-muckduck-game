@@ -1,40 +1,42 @@
 ﻿using System;
 using System.Threading;
+using System.Drawing;
+using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
 {
     class WelcomePage
     {
+       
         public static void AcsiiArt()
         {
-            Console.WriteLine("");
-            Console.WriteLine("      ██▀███  ▓█████ ▓█████▄ ▄▄▄█████▓ █    ██  ███▄ ▄███▓  ");
-            Console.WriteLine("     ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓  ██▒ ██▒██  ▓██▒▓██▒▀█▀ ██▒  ");
-            Console.WriteLine("     ▓██ ░▄█ ▒▒███   ░██   █▌▒ ▓██░ ▓░ ██  ▒██░▓██    ▓██░  ");
-            Console.WriteLine("     ▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌░ ▓██▀▀█▄ ▓█  ░██░▒██    ▒██   ");
-            Console.WriteLine("     ░██▓ ▒██▒░▒████▒░▒████▓   ▒██▒ ░██▒█████▓ ▒██▒   ░██▒  ");
-            Console.WriteLine("     ░ ▒▓ ░▒▓░░░ ▒░ ░ ▒▒▓  ▒   ▒ ░░   ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░  ");
-            Console.WriteLine("       ░▒ ░ ▒░ ░ ░  ░ ░ ▒  ▒     ░    ░░▒░ ░ ░ ░  ░      ░  ");
-            Console.WriteLine("       ░░   ░    ░    ░ ░  ░   ░       ░░░ ░ ░ ░      ░     ");
-            Console.WriteLine("            ███▄    █  ▒█████  ▄▄▄█████▓");
-            Console.WriteLine("            ██ ▀█   █ ▒██▒  ██▒▓  ██▒ ▓▒");
-            Console.WriteLine("           ▓██  ▀█ ██▒▒██░  ██▒▒ ▓██░ ▒░");
-            Console.WriteLine("           ▓██▒  ▐▌██▒▒██   ██░░ ▓██▓ ░ ");
-            Console.WriteLine("           ▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ");
-            Console.WriteLine("           ░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ");
-            Console.WriteLine("           ░ ░░   ░ ▒░  ░ ▒ ▒░     ░    ");
-            Console.WriteLine("     ███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀");
-            Console.WriteLine("    ▓██▒▀█▀ ██▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ");
-            Console.WriteLine("    ▓██    ▓██░▓██  ▒██░▒▓█    ▄ ▓███▄░ ░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░ ");
-            Console.WriteLine("    ▒██    ▒██ ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ");
-            Console.WriteLine("    ▒██▒   ░██▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄");
-            Console.WriteLine("    ░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒");
-            Console.WriteLine("    ░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░");
-            Console.WriteLine("    ░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ");
-
-            TypeByLetter("    Come on an adventure.. If you dare..", 150);
+           Console.WriteLine("  ██▀███  ▓█████ ▓█████▄ ▄▄▄█████▓ █    ██  ███▄ ▄███▓  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓  ██▒ ██▒██  ▓██▒▓██▒▀█▀ ██▒  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ▓██ ░▄█ ▒▒███   ░██   █▌▒ ▓██░ ▓░ ██  ▒██░▓██    ▓██░  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌░ ▓██▀▀█▄ ▓█  ░██░▒██    ▒██   ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ░██▓ ▒██▒░▒████▒░▒████▓   ▒██▒ ░██▒█████▓ ▒██▒   ░██▒  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ░ ▒▓ ░▒▓░░░ ▒░ ░ ▒▒▓  ▒   ▒ ░░   ░▒▓▒ ▒ ▒ ░ ▒░   ░  ░  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("   ░▒ ░ ▒░ ░ ░  ░ ░ ▒  ▒     ░    ░░▒░ ░ ░ ░  ░      ░  ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("   ░░   ░    ░    ░ ░  ░   ░       ░░░ ░ ░ ░      ░     ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("        ███▄    █  ▒█████  ▄▄▄█████▓", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("        ██ ▀█   █ ▒██▒  ██▒▓  ██▒ ▓▒", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("       ▓██  ▀█ ██▒▒██░  ██▒▒ ▓██░ ▒░", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("       ▓██▒  ▐▌██▒▒██   ██░░ ▓██▓ ░ ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("       ▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("       ░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("       ░ ░░   ░ ▒░  ░ ▒ ▒░     ░    ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine(" ███▄ ▄███▓ █    ██  ▄████▄   ██ ▄█▀▓█████▄  █    ██  ▄████▄   ██ ▄█▀", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("▓██▒▀█▀ ██▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒ ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("▓██    ▓██░▓██  ▒██░▒▓█    ▄ ▓███▄░ ░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░ ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("▒██    ▒██ ▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄ ", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("▒██▒   ░██▒▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("░ ▒░   ░  ░░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒ ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("░  ░      ░░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░ ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░", Color.FromArgb(204, 34, 0));
+           Console.WriteLine("░      ░    ░░░ ░ ░ ░        ░ ░░ ░  ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░ ", Color.FromArgb(204, 34, 0));
+       
+            TypeLine("Come on an adventure.. If you dare..", 450);
             Console.WriteLine();
-            TypeByLetter("    Press any key to continue...", 150);
+            TypeLine("Press any key to continue...", 450);
 
             Console.ReadKey(true);
                 Console.Clear();
