@@ -11,7 +11,7 @@ namespace redrum_not_muckduck_game
         public bool HasItem { get; set; }
         public List<Room> AdjacentRoom { get; set; }
 
-        public Room(string roomName, string description, string itemInRoom, string personInRoom)
+        public Room(string roomName, string description, string itemInRoom, string personInRoom, bool hasItem)
         {
             Name = roomName;
             Description = description; 

@@ -63,6 +63,7 @@ namespace redrum_not_muckduck_game
                 );
             Reception = new Room(
                 "Reception",
+                " ",
                 "no item",
                 "Pam: \"The door is locked\"",
                 false
