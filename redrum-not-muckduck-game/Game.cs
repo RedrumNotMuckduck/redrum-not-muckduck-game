@@ -26,37 +26,43 @@ namespace redrum_not_muckduck_game
         public static string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
-    public Game()
+        public Game()
         {
             Accounting = new Room(
                "Accounting",
                "Angela's cat, Bandit",
-               "Oscar: \"I am going into the ceiling\""
+               "Oscar: \"I am going into the ceiling\"",
+               true
                );
             Sales = new Room(
                "Sales",
                "a random torch",
-               "Andy: \"This would never happen at Cornell\""
+               "Andy: \"This would never happen at Cornell\"",
+               true
                );
             Kitchen = new Room(
                 "Kitchen",
                 "Oscar falling out of ceiling",
-                "Phyllis: \"I saw Dwight came from the break room\""
+                "Phyllis: \"I saw Dwight came from the break room\"",
+                false
                 );
             Breakroom = new Room(
                 "Breakroom",
                 "vending machine",
-                "No one is here"
+                "No one is here",
+                false
                 );
             Reception = new Room(
                 "Reception",
-                "nothing",
-                "Pam: \"The door is locked\""
+                "no item",
+                "Pam: \"The door is locked\"",
+                false
                 );
             Annex = new Room(
                 "Annex",
                 "beet stained cigs",
-                "Kelly: \"Why does Dwight have a blow horn?\""
+                "Kelly: \"Why does Dwight have a blow horn?\"",
+                true
                 );
 
             CurrentRoom = Accounting;
@@ -69,7 +75,7 @@ namespace redrum_not_muckduck_game
             Breakroom.AdjacentRoom = new List<Room> { Annex };
         }
 
-    public void Play()
+        public void Play()
         {
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
             //WelcomePage.AcsiiArt();
@@ -85,7 +91,7 @@ namespace redrum_not_muckduck_game
             WelcomePage.EndScene();
         }
 
-    private void UserTurn()
+        private void UserTurn()
         {
             Console.Write("> ");
             string userChoice = Console.ReadLine().ToLower();
@@ -103,9 +109,7 @@ namespace redrum_not_muckduck_game
                     Render.DeleteQuote();
                     Board.Render();
                     Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
-                    Number_of_Items++;
-                    //TODO: add function to handle when nothing is in the room/when item is already found
-                    Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                    CheckIfItemHasBeenFound();
                     Board.Render();
                     break;
                 case "talk":
@@ -152,7 +156,7 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        private void UpdateCurrentRoom(string nextRoom) 
+        private void UpdateCurrentRoom(string nextRoom)
         {
             for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
             {
@@ -160,6 +164,16 @@ namespace redrum_not_muckduck_game
                 {
                     CurrentRoom = CurrentRoom.AdjacentRoom[i];
                 }
+            }
+        }
+
+        private void CheckIfItemHasBeenFound()
+        {
+            if (CurrentRoom.HasItem)
+            {
+                Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                CurrentRoom.HasItem = !CurrentRoom.HasItem;
+                Number_of_Items++;
             }
         }
     }
