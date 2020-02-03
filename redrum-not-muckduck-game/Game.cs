@@ -20,6 +20,7 @@ namespace redrum_not_muckduck_game
         public static Board Board = new Board();
         public static Render Render = new Render();
         public static Solution Solution = new Solution();
+        public static HelpPage HelpPage = new HelpPage();
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
         public static bool IsGameOver = false;
@@ -136,10 +137,9 @@ namespace redrum_not_muckduck_game
                     Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
                 case "help":
-                    Console.WriteLine("In order to escape you must find WHO started the fire, WHAT started the fire, \n" +
-                     "& WHERE the fire was started. After gathering as much information \n" +
-                     "possible head to the reception area to show Michael what you have found.\n" +
-                     "Your options for naviagting in the rooms are: (explore, talk, leave, quit)", Color.Red);
+                    Console.Clear();
+                    HelpPage.Render();
+                    HelpPage.displayHelpMsg();
                     break;
                 default:
                     Board.Render();
