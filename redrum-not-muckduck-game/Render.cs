@@ -1,5 +1,9 @@
-﻿namespace redrum_not_muckduck_game
+﻿using System;
+
+namespace redrum_not_muckduck_game
 {
+    // This class controls all of the updates made to the game board
+    // You can find how to delete a scene, render available rooms, scene description, & quotes
     class Render
     {
         public void AdjacentRooms()
@@ -91,6 +95,16 @@
                 }
                 Board.board[ROW_WHERE_SCENE_STARTS, COLUMN_WHERE_SCENE_STARTS + currentLetter] = Game.CurrentRoom.Description[i];
                 currentLetter++;
+            }
+        }
+
+        public static void TypeByElement(string[] input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                Console.WriteLine(input[i]);
+                // Waits for user to press key to continue
+                Console.ReadKey(true);
             }
         }
     }

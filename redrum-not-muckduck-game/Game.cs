@@ -4,9 +4,10 @@ using System.Runtime.InteropServices;
 using System.Drawing; 
 using Console = Colorful.Console;
 
-
 namespace redrum_not_muckduck_game
 {
+    // This class controls the game logic
+    // You can find the game loop, user turn loop, navigation logic, and sets the scene for the game
     class Game
     {
         public Room Accounting { get; set; }
@@ -90,7 +91,8 @@ namespace redrum_not_muckduck_game
         public void Play()
         {
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
-            //WelcomePage.AcsiiArt();
+            WelcomePage.AcsiiArt();
+            WelcomePage.StoryIntro();
             Board.UpdateCurrentPlayerLocation();
             Render.Action();
             Render.SceneDescription();
@@ -101,7 +103,15 @@ namespace redrum_not_muckduck_game
             {
                 UserTurn();
             }
-            WelcomePage.EndScene();
+            if (Number_of_Lives == 0)
+            {
+                EndPage.LoseScene();
+            }
+            else
+            {
+                EndPage.WinScene();
+            }
+            EndPage.ThankYou();
         }
 
         private void UserTurn()

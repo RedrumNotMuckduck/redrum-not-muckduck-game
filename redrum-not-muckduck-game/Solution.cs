@@ -3,6 +3,8 @@ using System.Threading;
 
 namespace redrum_not_muckduck_game
 {
+    // This class controls the solution to win the game and the amount of live user has left
+    // You can find the methods for determining a right or wrong guess
     public class Solution
     {
         public string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
