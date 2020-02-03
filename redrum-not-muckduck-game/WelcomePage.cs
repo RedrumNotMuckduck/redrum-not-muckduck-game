@@ -5,9 +5,10 @@ using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
 {
+    // This class controls the intro to the game
+    // You can find Acsii Art & Story here
     class WelcomePage
     {
-       
         public static void AcsiiArt()
         {
             Console.WriteLine(""); 
@@ -38,10 +39,8 @@ namespace redrum_not_muckduck_game
             TypeByLetter("    Come on an adventure.. If you dare..", 150);
             Console.WriteLine();
             TypeByLetter("    Press any key to continue...", 150);
-
+            // Waits for user to hit key to start game
             Console.ReadKey(true);
-                Console.Clear();
-                StoryIntro();
         }
 
         public static void TypeByLetter(string line, int milliseconds)
@@ -55,7 +54,8 @@ namespace redrum_not_muckduck_game
 
         public static void StoryIntro()
         {
-            TypeByElement(intro);
+            Console.Clear();
+            Render.TypeByElement(intro);
         }
 
         private static string[] intro = { "\n    Those M&Ms look good. I wonder how many I can stuff in my mouth.",
@@ -69,27 +69,6 @@ namespace redrum_not_muckduck_game
         "    After gathering as much information possible head to the reception area,", 
         "\t    to show Michael what you have found.",
         "    Be careful, an incorrect guess will lose you a life"};
-
-        public static void TypeByElement(string[] input)
-        {
-            for (int i = 0; i < input.Length; i++)
-            {
-                Console.WriteLine(input[i]);
-                Console.ReadKey(true);
-            }
-        }
-
-        public static void EndScene()
-        {
-            Console.Clear();
-            Console.WriteLine("");
-            Console.WriteLine("    ████████╗██╗  ██╗ █████╗ ███╗   ██╗██╗  ██╗███████╗    ███████╗ ██████╗ ██████╗     ██████╗ ██╗      █████╗ ██╗   ██╗██╗███╗   ██╗ ██████╗ ██╗");
-            Console.WriteLine("    ╚══██╔══╝██║  ██║██╔══██╗████╗  ██║██║ ██╔╝██╔════╝    ██╔════╝██╔═══██╗██╔══██╗    ██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝██║████╗  ██║██╔════╝ ██║");
-            Console.WriteLine("       ██║   ███████║███████║██╔██╗ ██║█████╔╝ ███████╗    █████╗  ██║   ██║██████╔╝    ██████╔╝██║     ███████║ ╚████╔╝ ██║██╔██╗ ██║██║  ███╗██║");
-            Console.WriteLine("       ██║   ██╔══██║██╔══██║██║╚██╗██║██╔═██╗ ╚════██║    ██╔══╝  ██║   ██║██╔══██╗    ██╔═══╝ ██║     ██╔══██║  ╚██╔╝  ██║██║╚██╗██║██║   ██║╚═╝");
-            Console.WriteLine("       ██║   ██║  ██║██║  ██║██║ ╚████║██║  ██╗███████║    ██║     ╚██████╔╝██║  ██║    ██║     ███████╗██║  ██║   ██║   ██║██║ ╚████║╚██████╔╝██╗");
-            Console.WriteLine("       ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚═╝  ╚═╝    ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝");
-        }
     }  
 }
 

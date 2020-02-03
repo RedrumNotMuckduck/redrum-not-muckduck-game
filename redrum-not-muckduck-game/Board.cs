@@ -4,6 +4,8 @@ using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
 {
+    // This class creates the board
+    // You can control the size, color, and updating user progress
     public class Board
     {
         internal int BOARD_DIMENSION_ROWS = 30;
@@ -17,20 +19,24 @@ namespace redrum_not_muckduck_game
 
         public void Render()
         {
+            // This method goes through each row and column of the 2D board to print
+            // out each character
             Console.Clear();
             for (int row = 0; row < BOARD_DIMENSION_ROWS; row++)
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                  
+                    // Highlights current location in orange
                     if(row == 1 && column > 15 && column < 30)
                     {
                         Console.Write(board[row, column], Color.Orange);
                     }
+                    // Highlights users health in red 
                     else if (row == 2 && column > 49 && column < 70)
                     {
                         Console.Write(board[row, column], Color.Red);
                     }
+                    // Highlights avaliable actions in yellow
                     else if (row > 4 && row < 10 && column > 1 && column < 25) 
                     {
                         Console.Write(board[row, column], Color.Yellow); 
@@ -75,8 +81,10 @@ namespace redrum_not_muckduck_game
             }
         }
 
+        
         public char[,] Create()
         {
+            // Creates default board to be updated
             return new char[30,80] //new char[] accepts constant values only - this is the same as new char[BOARD_DIMENSON_ROWS,BOARD_DIMENSION_COLUMNS]
             {
                 {'|','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','|'},

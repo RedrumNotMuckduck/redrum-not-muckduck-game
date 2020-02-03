@@ -2,6 +2,8 @@
 
 namespace redrum_not_muckduck_game
 {
+    // This class creates new rooms for the game
+    // Each room has a name, description, item, person, & adjacent rooms. 
     class Room
     {
         public string Name { get; set; }
