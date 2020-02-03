@@ -92,8 +92,8 @@ namespace redrum_not_muckduck_game
         public void Play()
         {
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
-            WelcomePage.AcsiiArt();
-            WelcomePage.StoryIntro();
+            //WelcomePage.AcsiiArt();
+            //WelcomePage.StoryIntro();
             Board.UpdateCurrentPlayerLocation();
             Render.Action();
             Render.SceneDescription();
@@ -149,7 +149,6 @@ namespace redrum_not_muckduck_game
                 case "help":
                     Console.Clear();
                     HelpPage.Render();
-                    HelpPage.displayHelpMsg();
                     break;
                 default:
                     Board.Render();
