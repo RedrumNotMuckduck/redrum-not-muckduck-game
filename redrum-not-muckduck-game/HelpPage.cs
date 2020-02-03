@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
+using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
 {
@@ -11,14 +13,19 @@ namespace redrum_not_muckduck_game
         public static char[,] helpPage { get; set; }
 
         public string helpMessage =
-         "In order to escape you must find WHO started the fire,\n" +
-            "WHAT started the fire\n" +
-            "& WHERE the fire was started.\n " +
-            "After gathering as much information\n" +
-            "*possible head to the reception area to " +
-            "show Michael what you have found." +
-            "Your options for naviagting in the rooms are:" +
-            "(explore, talk, leave, quit)."
+         "In order to ESCAPE you must find "+
+            "*  WHO started the fire," +
+            "*   WHAT started the fire," +
+            "*    & WHERE the fire was started." +
+            "* "+
+            "*After gathering as much information as" +
+            "* possible head to the reception area to" +
+            "*   show Michael what you have found." +
+            "* "+
+            "*Your options for naviagting in the rooms are:" +
+            "*    (explore, talk, leave, quit)."+
+            "* "+
+            "* Press ENTER to go back to the room."
         ;
         public HelpPage()
         {
@@ -27,8 +34,22 @@ namespace redrum_not_muckduck_game
 
         public void displayHelpMsg()
         {
-            Console.WriteLine(helpMessage);
+            int ROW_WHERE_MSG_STARTS = 2;
+            int COLUMN_WHERE_MSG_STARTS = 6;
+            int currentLetter = 0; 
 
+            for (int i = 0; i < helpMessage.Length; i++)
+            {
+                if(helpMessage[i] == '*')
+                {
+                    i++; 
+                    ROW_WHERE_MSG_STARTS++;
+                    COLUMN_WHERE_MSG_STARTS = 6;
+                    currentLetter = 0; 
+                }
+                helpPage[ROW_WHERE_MSG_STARTS, COLUMN_WHERE_MSG_STARTS + currentLetter] = helpMessage[i];
+                currentLetter++; 
+            }
         }
 
         public void Render()
@@ -39,9 +60,12 @@ namespace redrum_not_muckduck_game
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
                         Console.Write(helpPage[row, column]);
+                        displayHelpMsg();
                 }
                 Console.WriteLine();
             }
+
+            
         }
 
         public char[,] Create()
