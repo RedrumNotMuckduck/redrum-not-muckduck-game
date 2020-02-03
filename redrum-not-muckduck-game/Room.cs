@@ -21,5 +21,30 @@ namespace redrum_not_muckduck_game
             PersonInRoom = personInRoom;
             HasItem = hasItem;
         }
+
+        public string GetNameToLowerCase()
+        {
+            return Name.ToLower();
+        }
+
+        public int GetNameLength()
+        {
+            return Name.Length;
+        }
+
+        public string GetQuote()
+        {
+            return PersonInRoom;
+        }
+
+        public int GetQuoteLength()
+        {
+            return PersonInRoom.Length;
+        }
+
+        public int NumberOfAdjacentRooms()
+        {
+            return AdjacentRoom.Count;
+        }
     }
 }
