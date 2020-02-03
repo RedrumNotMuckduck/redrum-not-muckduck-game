@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing; 
 using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
@@ -19,13 +18,11 @@ namespace redrum_not_muckduck_game
         public Room Exit { get; set; }
         public static Room CurrentRoom { get; set; }
         public static Board Board = new Board();
-        public static Render Render = new Render();
-        public static Solution Solution = new Solution();
         public static HelpPage HelpPage = new HelpPage();
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
         public static bool IsGameOver = false;
-        public static string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
+        public static string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         public Game()
@@ -104,15 +101,7 @@ namespace redrum_not_muckduck_game
             {
                 UserTurn();
             }
-            if (Number_of_Lives == 0)
-            {
-                EndPage.LoseScene();
-            }
-            else
-            {
-                EndPage.WinScene();
-            }
-            EndPage.ThankYou();
+            EndOfGame();
         }
 
         private void UserTurn()
@@ -132,7 +121,6 @@ namespace redrum_not_muckduck_game
                 case "explore":
                     Render.DeleteScene();
                     Board.Render();
-                    Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
                     CheckIfItemHasBeenFound();
                     Board.Render();
                     break;
@@ -143,15 +131,13 @@ namespace redrum_not_muckduck_game
                     break;
                 case "quit":
                     IsGameOver = !IsGameOver;
-                    Console.Clear();
-                    Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
                 case "help":
                     Console.Clear();
                     HelpPage.Render();
                     break;
                 default:
-                    Board.Render();
+                    //Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
             }
@@ -161,8 +147,8 @@ namespace redrum_not_muckduck_game
         {
             if (CurrentRoom.Name == "Reception")
             {
-                Solution.CheckSolution();
-                Solution.CheckHealth();
+                IsGameOver = Solution.CheckSolution();
+                CheckHealth();
             }
             else
             {
@@ -178,9 +164,17 @@ namespace redrum_not_muckduck_game
             }
         }
 
+        private void CheckHealth()
+        {
+            if (Number_of_Lives == 0)
+            {
+                IsGameOver = true;
+            }
+        }
+
         private void UpdateCurrentRoom(string nextRoom)
         {
-            for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
+            for (int i = 0; i < CurrentRoom.NumberOfAdjacentRooms(); i++)
             {
                 if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
                 {
@@ -197,6 +191,13 @@ namespace redrum_not_muckduck_game
                 CurrentRoom.HasItem = !CurrentRoom.HasItem;
                 Number_of_Items++;
             }
+        }
+
+        private void EndOfGame()
+        {
+            if (Number_of_Lives == 0) { EndPage.LoseScene(); }
+            else { EndPage.WinScene(); }
+            EndPage.ThankYouAsciiArt();
         }
     }
 }

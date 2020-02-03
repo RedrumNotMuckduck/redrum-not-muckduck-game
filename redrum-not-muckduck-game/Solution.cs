@@ -7,15 +7,15 @@ namespace redrum_not_muckduck_game
     // You can find the methods for determining a right or wrong guess
     public class Solution
     {
-        public string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
+        public static string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
 
-        public void CheckSolution()
+        public static bool CheckSolution()
         {
             string[] questions = new string[] { "Michael: \"Who did it?\"", "Michael: \"What did they use?\"", "Michael: \"Where did it happen?\"" };
             for (int i = 0; i < Solutions.Length; i++)
             {
-                Game.Render.DeleteScene();
-                Game.Render.AskForSolution(questions[i]);
+                Render.DeleteScene();
+                Render.AskForSolution(questions[i]);
                 Game.Board.Render();
                 Console.Write("> ");
                 string userGuess = Console.ReadLine();
@@ -23,40 +23,32 @@ namespace redrum_not_muckduck_game
                 {
                     LoseALife();
                     WrongGuess();
-                    return;
+                    return false; //Wrong guess - return false so that the game continues
                 }
                 RightGuess();
-                Thread.Sleep(1000);
             }
-            Game.IsGameOver = true;
+            return true; //At this point all guesses were correct so the game ends
         }
 
-        private void WrongGuess()
+        private static void WrongGuess()
         {
-            Game.Render.DeleteScene();
-            Game.Render.AskForSolution("That sounds off, try again");
+            Render.DeleteScene();
+            Render.AskForSolution("That sounds off, try again");
             Game.Board.Render();
-            Thread.Sleep(1000);
-            Game.Render.DeleteScene();
-            Game.Board.Render();
-        }
-
-        private void RightGuess()
-        {
-            Game.Render.DeleteScene();
-            Game.Render.AskForSolution("Thats right!");
+            Thread.Sleep(1000);//Display if the guess was wrong for 1 second
+            Render.DeleteScene();
             Game.Board.Render();
         }
 
-        public void CheckHealth()
+        private static void RightGuess()
         {
-            if (Game.Number_of_Lives == 0)
-            {
-                Game.IsGameOver = true;
-            }
+            Render.DeleteScene();
+            Render.AskForSolution("Thats right!");
+            Game.Board.Render();
+            Thread.Sleep(1000); //Display if the guess was right/wrong for 1 second
         }
 
-        private void LoseALife()
+        private static void LoseALife()
         {
             int COLUMN_WHERE_HEARTS_START = 49;
             int ROW_WHERE_HEARTS_START = 2;
