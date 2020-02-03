@@ -137,7 +137,7 @@ namespace redrum_not_muckduck_game
                     HelpPage.Render();
                     break;
                 default:
-                    //Board.Render();
+                    Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
                     break;
             }
@@ -187,6 +187,7 @@ namespace redrum_not_muckduck_game
         {
             if (CurrentRoom.HasItem)
             {
+                Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
                 Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
                 CurrentRoom.HasItem = !CurrentRoom.HasItem;
                 Number_of_Items++;

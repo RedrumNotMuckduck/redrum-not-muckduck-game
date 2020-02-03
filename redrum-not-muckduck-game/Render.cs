@@ -51,13 +51,13 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        public static void AskForSolution(string question)
+        public static void OneLineQuestionOrQuote(string questionOrQuote)
         {
             int ROW_WHERE_QUESITON_STARTS = 14;
             int COLUMN_WHERE_QUESTION_STARTS = 1;
-            for (int i = 0; i < question.Length; i++)
+            for (int i = 0; i < questionOrQuote.Length; i++)
             {
-                Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = question[i];
+                Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = questionOrQuote[i];
             }
         }
 

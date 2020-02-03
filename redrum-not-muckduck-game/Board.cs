@@ -50,7 +50,7 @@ namespace redrum_not_muckduck_game
                             Console.Write(board[row, column], Color.Yellow); 
                         }
                     }
-                    // If its not something that needs to be highlighted - just print it
+                    // If its not something that needs to be highlighted - just print it in white
                     else
                     {
                         Console.Write(board[row, column]);
@@ -91,10 +91,9 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        
         public char[,] Create()
         {
-            // Creates default board to be updated
+            // Creates default board to be updated throughout game
             return new char[30,80] //new char[] accepts constant values only - this is the same as new char[BOARD_DIMENSON_ROWS,BOARD_DIMENSION_COLUMNS]
             {
                 {'|','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','|'},

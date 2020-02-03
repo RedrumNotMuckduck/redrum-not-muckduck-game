@@ -15,7 +15,7 @@ namespace redrum_not_muckduck_game
             for (int i = 0; i < Solutions.Length; i++)
             {
                 Render.DeleteScene();
-                Render.AskForSolution(questions[i]);
+                Render.OneLineQuestionOrQuote(questions[i]);
                 Game.Board.Render();
                 Console.Write("> ");
                 string userGuess = Console.ReadLine();
@@ -33,7 +33,7 @@ namespace redrum_not_muckduck_game
         private static void WrongGuess()
         {
             Render.DeleteScene();
-            Render.AskForSolution("That sounds off, try again");
+            Render.OneLineQuestionOrQuote("That sounds off, try again");
             Game.Board.Render();
             Thread.Sleep(1000);//Display if the guess was wrong for 1 second
             Render.DeleteScene();
@@ -43,7 +43,7 @@ namespace redrum_not_muckduck_game
         private static void RightGuess()
         {
             Render.DeleteScene();
-            Render.AskForSolution("Thats right!");
+            Render.OneLineQuestionOrQuote("Thats right!");
             Game.Board.Render();
             Thread.Sleep(1000); //Display if the guess was right/wrong for 1 second
         }
