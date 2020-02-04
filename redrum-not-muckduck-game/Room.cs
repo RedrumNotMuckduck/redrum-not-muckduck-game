@@ -11,7 +11,7 @@ namespace redrum_not_muckduck_game
         public string ItemInRoom { get; set; }
         public string PersonInRoom { get; set; }
         public bool HasItem { get; set; }
-        public List<Room> AdjacentRoom { get; set; }
+        public List<Room> AdjacentRooms { get; set; }
 
         public Room(string roomName, string description, string itemInRoom, string personInRoom, bool hasItem)
         {
@@ -40,11 +40,6 @@ namespace redrum_not_muckduck_game
         public int GetQuoteLength()
         {
             return PersonInRoom.Length;
-        }
-
-        public int NumberOfAdjacentRooms()
-        {
-            return AdjacentRoom.Count;
         }
     }
 }
