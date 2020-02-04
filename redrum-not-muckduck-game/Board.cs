@@ -27,7 +27,7 @@ namespace redrum_not_muckduck_game
                 bool endOfWord = false; // We track the 'action' key words using this flag
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    // Highlights current location in blue
+                    // Highlights current location in green
                     if (row == 1 && column > 15 && column < 30)
                     {
                         Console.Write(board[row, column], Color.Green);

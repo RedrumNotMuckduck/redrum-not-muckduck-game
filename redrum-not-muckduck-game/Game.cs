@@ -65,7 +65,7 @@ namespace redrum_not_muckduck_game
                 "Reception",
                 " ",
                 "no item",
-                "Pam: \"The door is locked\"",
+                "Michael: \"Would you like to solve the puzzle?\"",
                 false
                 );
             Annex = new Room(
@@ -78,12 +78,12 @@ namespace redrum_not_muckduck_game
 
             CurrentRoom = Accounting;
 
-            Accounting.AdjacentRoom = new List<Room> { Sales };
-            Sales.AdjacentRoom = new List<Room> { Reception, Accounting, Kitchen };
-            Reception.AdjacentRoom = new List<Room> { Sales };
-            Kitchen.AdjacentRoom = new List<Room> { Sales, Annex };
-            Annex.AdjacentRoom = new List<Room> { Kitchen, Breakroom };
-            Breakroom.AdjacentRoom = new List<Room> { Annex };
+            Accounting.AdjacentRooms = new List<Room> { Sales };
+            Sales.AdjacentRooms = new List<Room> { Reception, Accounting, Kitchen };
+            Reception.AdjacentRooms = new List<Room> { Sales };
+            Kitchen.AdjacentRooms = new List<Room> { Sales, Annex };
+            Annex.AdjacentRooms = new List<Room> { Kitchen, Breakroom };
+            Breakroom.AdjacentRooms = new List<Room> { Annex };
         }
 
         public void Play()
@@ -125,9 +125,7 @@ namespace redrum_not_muckduck_game
                     Board.Render();
                     break;
                 case "talk":
-                    Render.DeleteScene();
-                    Render.Quote();
-                    Board.Render();
+                    TalkToPerson();
                     break;
                 case "quit":
                     IsGameOver = !IsGameOver;
@@ -145,13 +143,6 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
-            if (CurrentRoom.Name == "Reception")
-            {
-                IsGameOver = Solution.CheckSolution();
-                CheckHealth();
-            }
-            else
-            {
                 Render.AdjacentRooms();
                 Board.Render();
                 Console.Write("> ");
@@ -161,6 +152,27 @@ namespace redrum_not_muckduck_game
                 Board.ClearCurrentRoom();
                 UpdateCurrentRoom(nextRoom);
                 Board.UpdateCurrentPlayerLocation();
+        }
+
+        private void TalkToPerson()
+        {
+            Render.DeleteScene();
+            Render.Quote();
+            Board.Render();
+            if (CurrentRoom.Name == "Reception")
+            {
+                bool userWantsToSolve = Solution.AskToSolvePuzzle();
+                if (userWantsToSolve)
+                {
+                    IsGameOver = Solution.CheckSolution();
+                    CheckHealth();
+                }
+                else
+                {
+                    Render.DeleteScene();
+                    Render.OneLineQuestionOrQuote("Michael: \"Ok, come back when you are ready\"");
+                    Board.Render();
+                }
             }
         }
 
@@ -174,11 +186,11 @@ namespace redrum_not_muckduck_game
 
         private void UpdateCurrentRoom(string nextRoom)
         {
-            for (int i = 0; i < CurrentRoom.NumberOfAdjacentRooms(); i++)
+            foreach (Room Room in CurrentRoom.AdjacentRooms)
             {
-                if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
+                if (nextRoom == Room.GetNameToLowerCase())
                 {
-                    CurrentRoom = CurrentRoom.AdjacentRoom[i];
+                    CurrentRoom = Room;
                 }
             }
         }
@@ -191,6 +203,10 @@ namespace redrum_not_muckduck_game
                 Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
                 CurrentRoom.HasItem = !CurrentRoom.HasItem;
                 Number_of_Items++;
+            }
+            else
+            {
+                Render.OneLineQuestionOrQuote("Nothing left to explore");
             }
         }
 
