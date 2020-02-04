@@ -21,6 +21,8 @@ namespace redrum_not_muckduck_game
         public static HelpPage HelpPage = new HelpPage();
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
+        public static int Number_of_Rooms { get; set; } = 0;
+        public static int Number_of_Names { get; set; } = 0; 
         public static bool IsGameOver = false;
         public static string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
@@ -127,6 +129,7 @@ namespace redrum_not_muckduck_game
                 case "talk":
                     Render.DeleteScene();
                     Render.Quote();
+                    Board.AddNames("Andy"); 
                     Board.Render();
                     break;
                 case "quit":
@@ -174,15 +177,23 @@ namespace redrum_not_muckduck_game
 
         private void UpdateCurrentRoom(string nextRoom)
         {
+          // adding visted room while updating current room 
+            List<string> vistedRooms = new List<string>(); 
             for (int i = 0; i < CurrentRoom.NumberOfAdjacentRooms(); i++)
             {
                 if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
                 {
+                    if (!vistedRooms.Contains(CurrentRoom.Name))
+                    {
+                        vistedRooms.Add(CurrentRoom.Name); 
+                        Board.VistedRooms(CurrentRoom.Name);
+                        Number_of_Rooms++;
+                    }
                     CurrentRoom = CurrentRoom.AdjacentRoom[i];
                 }
             }
         }
-      
+
         private void CheckIfItemHasBeenFound()
         {
             if (CurrentRoom.HasItem)
