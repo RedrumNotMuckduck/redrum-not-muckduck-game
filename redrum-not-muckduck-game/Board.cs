@@ -75,7 +75,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
+            for (int i = 0; i < Game.CurrentRoom.GetNameLength(); i++)
             {
                 board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
             }
@@ -85,7 +85,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
+            for (int i = 0; i < Game.CurrentRoom.GetNameLength(); i++)
             {
                 board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = Game.CurrentRoom.Name[i];
             }

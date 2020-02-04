@@ -6,7 +6,6 @@ namespace redrum_not_muckduck_game
 {
     // This class controls the solution to win the game and the amount of live user has left
     // You can find the methods for determining a right or wrong guess
-
     public class Solution
     {
         public static string[] Solutions = new string[] { "dwight", "beet stained cigs", "breakroom" };
@@ -44,9 +43,9 @@ namespace redrum_not_muckduck_game
         private static void WrongGuess()
         {
             Render.DeleteScene();
-            Render.OneLineQuestionOrQuote("That sounds off, try again");
+            Render.OneLineQuestionOrQuote("Michael: \"That sounds off - OUCH, lose a life\"");
             Game.Board.Render();
-            Thread.Sleep(1000);//Display if the guess was wrong for 1 second
+            Thread.Sleep(2000);//Display if the guess was wrong for 2 second
             Render.DeleteScene();
             Game.Board.Render();
         }
@@ -54,9 +53,9 @@ namespace redrum_not_muckduck_game
         private static void RightGuess()
         {
             Render.DeleteScene();
-            Render.OneLineQuestionOrQuote("Thats right!");
+            Render.OneLineQuestionOrQuote("Michael : \"That's right!\"");
             Game.Board.Render();
-            Thread.Sleep(1000); //Display if the guess was right/wrong for 1 second
+            Thread.Sleep(2000); //Display if the guess was right/wrong for 2 second
         }
 
         private static void LoseALife()

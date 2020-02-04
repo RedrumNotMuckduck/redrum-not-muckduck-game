@@ -88,7 +88,17 @@ namespace redrum_not_muckduck_game
 
         public void Play()
         {
-            if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
+            StartSetUp();
+            while (!IsGameOver)
+            {
+                UserTurn();
+            }
+            EndOfGame();
+        }
+
+        private void StartSetUp()
+        {
+            if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
             //WelcomePage.AcsiiArt();
             //WelcomePage.StoryIntro();
             Board.UpdateCurrentPlayerLocation();
@@ -96,12 +106,6 @@ namespace redrum_not_muckduck_game
             Render.SceneDescription();
             Board.Render();
             Console.WriteLine("Welcome to the Office!");
-
-            while (!IsGameOver)
-            {
-                UserTurn();
-            }
-            EndOfGame();
         }
 
         private void UserTurn()
@@ -164,11 +168,13 @@ namespace redrum_not_muckduck_game
                 bool userWantsToSolve = Solution.AskToSolvePuzzle();
                 if (userWantsToSolve)
                 {
+                    //If the user would like to solve the puzzle - check their answers
                     IsGameOver = Solution.CheckSolution();
                     CheckHealth();
                 }
                 else
                 {
+                    //Otherwise - Tell them to come back when they are ready
                     Render.DeleteScene();
                     Render.OneLineQuestionOrQuote("Michael: \"Ok, come back when you are ready\"");
                     Board.Render();
