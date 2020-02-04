@@ -101,11 +101,10 @@ namespace redrum_not_muckduck_game
             if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
             //WelcomePage.AcsiiArt();
             //WelcomePage.StoryIntro();
-            Board.UpdateCurrentPlayerLocation();
+            Render.Location(Board.board, CurrentRoom);
             Render.Action();
             Render.SceneDescription();
             Board.Render();
-            Console.WriteLine("Welcome to the Office!");
         }
 
         private void UserTurn()
@@ -147,15 +146,15 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
-                Render.AdjacentRooms();
-                Board.Render();
-                Console.Write("> ");
-                // TODO: error handling for user input 
-                string nextRoom = Console.ReadLine().ToLower();
-                Render.DeleteScene();
-                Board.ClearCurrentRoom();
-                UpdateCurrentRoom(nextRoom);
-                Board.UpdateCurrentPlayerLocation();
+            Render.AdjacentRooms();
+            Board.Render();
+            Console.Write("> ");
+            // TODO: error handling for user input 
+            string nextRoom = Console.ReadLine().ToLower();
+            Render.DeleteScene();
+            Render.DeleteLocation(Board.board, CurrentRoom);
+            UpdateCurrentRoom(nextRoom);
+            Render.Location(Board.board, CurrentRoom);
         }
 
         private void TalkToPerson()
@@ -206,7 +205,7 @@ namespace redrum_not_muckduck_game
             if (CurrentRoom.HasItem)
             {
                 Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
-                Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                Render.AddItemToFoundItems(Board.board, CurrentRoom.ItemInRoom);
                 CurrentRoom.HasItem = !CurrentRoom.HasItem;
                 Number_of_Items++;
             }

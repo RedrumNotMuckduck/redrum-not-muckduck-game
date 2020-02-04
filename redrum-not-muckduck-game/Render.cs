@@ -99,6 +99,37 @@ namespace redrum_not_muckduck_game
             }
         }
 
+        public static void DeleteLocation(char[,] board, Room currentRoom)
+        {
+            int ROW_WHERE_LOCATION_STARTS = 1;
+            int COLUMN_WHERE_LOCATION_STARTS = 16;
+            for (int i = 0; i < currentRoom.GetNameLength(); i++)
+            {
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
+            }
+        }
+
+        public static void Location(char[,] board, Room currentRoom)
+        {
+            int ROW_WHERE_LOCATION_STARTS = 1;
+            int COLUMN_WHERE_LOCATION_STARTS = 16;
+            for (int i = 0; i < currentRoom.GetNameLength(); i++)
+            {
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = currentRoom.Name[i];
+            }
+        }
+
+        public static void AddItemToFoundItems(char[,] board, string foundItem)
+        {
+            int ROW_WHERE_ITEMS_START = 8;
+            int COLUMN_WHERE_ITEMS_START = 50;
+            int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
+            for (int i = 0; i < foundItem.Length; i++)
+            {
+                board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
+            }
+        }
+
         public static void TypeByElement(string[] input)
         {
             for (int i = 0; i < input.Length; i++)
