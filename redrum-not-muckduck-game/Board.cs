@@ -113,8 +113,8 @@ namespace redrum_not_muckduck_game
             {
                 board[ROW_TO_INSERT_NAME, COLUMN_WHERE_NAMELIST_START + i] = name[i]; 
             }
-
         }
+        
         public char[,] Create()
         {
             // Creates default board to be updated throughout game
