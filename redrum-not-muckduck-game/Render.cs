@@ -34,7 +34,6 @@ namespace redrum_not_muckduck_game
             for (int i = 0; i < Game.CurrentRoom.GetQuoteLength(); i++)
             {
                 Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = quote[i];
-
             }
         }
 
