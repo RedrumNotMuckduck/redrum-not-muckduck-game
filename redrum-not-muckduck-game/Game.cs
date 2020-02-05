@@ -10,14 +10,15 @@ namespace redrum_not_muckduck_game
     // You can find the game loop, user turn loop, navigation logic, and sets the scene for the game
     class Game
     {
-        public Room Accounting { get; set; }
-        public Room Sales { get; set; }
-        public Room Kitchen { get; set; }
-        public Room Breakroom { get; set; }
-        public Room Reception { get; set; }
-        public Room Annex { get; set; }
-        public Room Exit { get; set; }
+        public static Room Accounting { get; set; }
+        public static Room Sales { get; set; }
+        public static Room Kitchen { get; set; }
+        public static Room Breakroom { get; set; }
+        public static Room Reception { get; set; }
+        public static Room Annex { get; set; }
+        public static Room Exit { get; set; }
         public static Room CurrentRoom { get; set; }
+        public static List<Room> AllRooms{ get; set; }
         public static Board Board = new Board();
         public static Render Render = new Render();
         public static Solution Solution = new Solution();
@@ -87,18 +88,22 @@ namespace redrum_not_muckduck_game
             Kitchen.AdjacentRoom = new List<Room> { Sales, Annex };
             Annex.AdjacentRoom = new List<Room> { Kitchen, Breakroom };
             Breakroom.AdjacentRoom = new List<Room> { Annex };
+            AllRooms = new List<Room> { Accounting, Sales, Reception, Kitchen, Annex, Breakroom };
         }
 
-        public void Play()
+        public void Play(bool isNewGame)
         {
-            if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
-            //WelcomePage.AcsiiArt();
-            //WelcomePage.StoryIntro();
-            Board.UpdateCurrentPlayerLocation();
-            Render.Action();
-            Render.SceneDescription();
-            Board.Render();
-            Console.WriteLine("Welcome to the Office!");
+            if (isNewGame) 
+            { 
+                if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
+                //WelcomePage.AcsiiArt();
+                //WelcomePage.StoryIntro();
+                Board.UpdateCurrentPlayerLocation();
+                Render.Action();
+                Render.SceneDescription();
+                Console.WriteLine("Welcome to the Office!");
+            }
+                Board.Render();
 
             while (!IsGameOver)
             {
@@ -113,6 +118,8 @@ namespace redrum_not_muckduck_game
                 EndPage.WinScene();
             }
             EndPage.ThankYou();
+            SaveWholeBoard.ResetBoardFile();
+            SaveElements.ResetElementsFile();
         }
 
         private void UserTurn()
@@ -145,6 +152,12 @@ namespace redrum_not_muckduck_game
                     IsGameOver = !IsGameOver;
                     Console.Clear();
                     Console.WriteLine("\nThanks for playing. Goodbye. ");
+                    break;
+                case "save":
+                    Console.Clear();
+                    SaveElements.Saved();
+                    SaveWholeBoard.Saved();
+                    Console.WriteLine("You game has been saved, Seen you soon.");
                     break;
                 case "help":
                     Console.Clear();
