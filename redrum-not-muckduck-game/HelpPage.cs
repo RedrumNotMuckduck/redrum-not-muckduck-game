@@ -52,7 +52,6 @@ namespace redrum_not_muckduck_game
                 currentLetter++; 
             }
         }
-
         public void Render()
         {
             Console.Clear();
@@ -66,7 +65,6 @@ namespace redrum_not_muckduck_game
                 Console.WriteLine();
             }
         }
-
         public char[,] Create()
         {
             return new char[20, 52] //new char[] accepts constant values only - this is the same as new char[BOARD_DIMENSON_ROWS,BOARD_DIMENSION_COLUMNS]

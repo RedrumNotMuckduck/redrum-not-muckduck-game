@@ -19,6 +19,7 @@ namespace redrum_not_muckduck_game
         public static Room CurrentRoom { get; set; }
         public static Board Board = new Board();
         public static HelpPage HelpPage = new HelpPage();
+        public static Hints Hints = new Hints(); 
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
         public static int Number_of_Rooms { get; set; } = 0;
@@ -26,6 +27,8 @@ namespace redrum_not_muckduck_game
         public static bool IsGameOver = false;
         public static string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        public static List<string> hintList = new List<string>();
+        public static List<string> vistedRooms = new List<string>();
 
         public Game()
         {
@@ -60,7 +63,7 @@ namespace redrum_not_muckduck_game
                 "Breakroom",
                 " ",
                 "vending machine",
-                "No one is here",
+                "No one is in the breakroom",
                 false
                 );
             Reception = new Room(
@@ -130,7 +133,7 @@ namespace redrum_not_muckduck_game
                     Board.Render();
                     break;
                 case "talk":
-                    Board.AddNames("Andy"); 
+                    Console.WriteLine(Game.CurrentRoom.GetQuote());
                     TalkToPerson();
                     break;
                 case "quit":
@@ -139,6 +142,10 @@ namespace redrum_not_muckduck_game
                 case "help":
                     Console.Clear();
                     HelpPage.Render();
+                    break;
+                case "hint":
+                    Console.Clear();
+                    Hints.Render();
                     break;
                 default:
                     Board.Render();
@@ -164,6 +171,13 @@ namespace redrum_not_muckduck_game
         {
             Render.DeleteScene();
             Render.Quote();
+            //Adding hint to hint list after talking to people
+            if (!hintList.Contains(CurrentRoom.GetQuote()) && CurrentRoom.Name != "Reception")
+            {
+                hintList.Add(CurrentRoom.GetQuote());
+                Hints.DisplayHints(CurrentRoom.GetQuote()); 
+            }
+
             Board.Render();
             if (CurrentRoom.Name == "Reception")
             {
@@ -193,22 +207,28 @@ namespace redrum_not_muckduck_game
         }
 
         private void UpdateCurrentRoom(string nextRoom)
-        {          // adding visted room while updating current room 
-            List<string> vistedRooms = new List<string>(); 
+        {   // adding visted room while updating current room 
+           
             foreach (Room Room in CurrentRoom.AdjacentRooms)
             {
                 if (nextRoom == Room.GetNameToLowerCase())
                 {
-                    if (!vistedRooms.Contains(CurrentRoom.Name))
-                    {
-                        vistedRooms.Add(CurrentRoom.Name); 
-                        Board.VistedRooms(CurrentRoom.Name);
-                        Number_of_Rooms++;
-                    }
+                    CheckIfVistedRoom(CurrentRoom.Name); 
                     CurrentRoom = Room;
                 }
             }
         }
+
+        private void CheckIfVistedRoom(string roomName)
+        {
+            if (!vistedRooms.Contains(roomName))
+            {
+                vistedRooms.Add(roomName);
+                Board.VistedRooms(roomName);
+                Number_of_Rooms++;
+            }
+        }
+
 
         private void CheckIfItemHasBeenFound()
         {
