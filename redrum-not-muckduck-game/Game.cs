@@ -133,7 +133,6 @@ namespace redrum_not_muckduck_game
                     Board.Render();
                     break;
                 case "talk":
-                    Console.WriteLine(Game.CurrentRoom.GetQuote());
                     TalkToPerson();
                     break;
                 case "quit":
