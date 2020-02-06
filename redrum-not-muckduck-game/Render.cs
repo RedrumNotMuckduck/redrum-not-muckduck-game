@@ -6,6 +6,8 @@ namespace redrum_not_muckduck_game
     // You can find how to delete a scene, render available rooms, scene description, & quotes
     class Render
     {
+        private static readonly string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
+
         public static void AdjacentRooms()
         {
             int ROW_WHERE_OPTIONS_START = 14;
@@ -41,11 +43,11 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_ACTIONS_START = 5;
             int COLUMN_WHERE_ACTIONS_START = 2;
-            for (int i = 0; i < Game.Actions.Length; i++)
+            for (int i = 0; i < Actions.Length; i++)
             {
-                for (int j = 0; j < Game.Actions[i].Length; j++)
+                for (int j = 0; j < Actions[i].Length; j++)
                 {
-                    Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Game.Actions[i][j];
+                    Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Actions[i][j];
                 }
                 ROW_WHERE_ACTIONS_START++;
             }

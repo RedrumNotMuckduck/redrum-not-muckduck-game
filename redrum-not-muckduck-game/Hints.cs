@@ -4,7 +4,7 @@ using System.Text;
 
 namespace redrum_not_muckduck_game
 {
-    public class Hints
+    public class HintPage
     {
         internal int BOARD_DIMENSION_ROWS = 20;
         internal int BOARD_DIMENSION_COLUMNS = 62;
@@ -12,9 +12,9 @@ namespace redrum_not_muckduck_game
         internal int COLUMN_WHERE_QUOTES_START = 6;
         public static char[,] hintsPage { get; set; }
 
-        public Hints()
+        public HintPage()
         {
-            hintsPage = Create(); 
+            hintsPage = Create();
         }
         public void DisplayHints(string hint)
         {
@@ -22,17 +22,17 @@ namespace redrum_not_muckduck_game
             {
                 hintsPage[ROW_WHERE_QUOTES_START, COLUMN_WHERE_QUOTES_START + i] = hint[i];
             }
-            ROW_WHERE_QUOTES_START +=1 ;
+            ROW_WHERE_QUOTES_START += 1;
         }
-  
+
         public void Render()
         {
             Console.Clear();
-            if(Game.hintList.Count == 0)
+            if (Game.Collected_Hints.Count == 0)
             {
                 string defaultHint = "No Hint Collected";
                 DisplayHints(defaultHint);
-                ROW_WHERE_QUOTES_START-=1; 
+                ROW_WHERE_QUOTES_START -= 1;
             }
             for (int row = 0; row < BOARD_DIMENSION_ROWS; row++)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using Console = Colorful.Console;
 
@@ -17,19 +18,21 @@ namespace redrum_not_muckduck_game
         public static Room Annex { get; set; }
         public static Room Exit { get; set; }
         public static Room CurrentRoom { get; set; }
-        public static List<Room> AllRooms{ get; set; }
-        public static Board Board = new Board();
-        public static HelpPage HelpPage = new HelpPage();
-        public static Hints Hints = new Hints(); 
+        public static List<Room> List_Of_All_Roooms { get; set; }
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
         public static int Number_of_Rooms { get; set; } = 0;
-        public static int Number_of_Names { get; set; } = 0; 
-        public static bool IsGameOver = false;
-        public static string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
-        public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-        public static List<string> hintList = new List<string>();
-        public static List<string> vistedRooms = new List<string>();
+        public static int Number_of_Names { get; set; } = 0;
+        public static bool Is_Game_Over { get; set; } = false;
+        public static List<string> Collected_Hints { get; set; } = new List<string>();
+        public static List<string> Visited_Rooms { get; set; } = new List<string>();
+
+        //Instances of all "pages/scences" within the game
+        public static Board Board = new Board();
+        public static HelpPage HelpPage = new HelpPage();
+        public static HintPage HintPage = new HintPage();
+        //Checks OS of user
+        public static readonly bool Is_Windows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         public Game()
         {
@@ -90,29 +93,46 @@ namespace redrum_not_muckduck_game
             Kitchen.AdjacentRooms = new List<Room> { Sales, Annex };
             Annex.AdjacentRooms = new List<Room> { Kitchen, Breakroom };
             Breakroom.AdjacentRooms = new List<Room> { Annex };
-            AllRooms = new List<Room> { Accounting, Sales, Reception, Kitchen, Annex, Breakroom };
+            List_Of_All_Roooms = new List<Room> { Accounting, Sales, Reception, Kitchen, Annex, Breakroom };
         }
 
-        public void Play(bool isNewGame)
+        public void Play()
         {
-            if (isNewGame) { StartSetUp(); }
+            CheckForSavedData();
             Board.Render();
-            while (!IsGameOver)
+            while (!Is_Game_Over)
             {
                 UserTurn();
             }
             EndOfGame();
         }
 
+        public void CheckForSavedData()
+        {
+            //Find the files where the data is being stored
+            SaveWholeBoard.GetWorkingBoardDirectory();
+            SaveElements.GetWorkingElementDirectory();
+
+            //If there is saved data - load it
+            if (new FileInfo(SaveWholeBoard.WorkingBoardDirectory).Length != 0)
+            {
+                SaveWholeBoard.Stored();
+                SaveElements.StoredElements();
+            }
+            else //Otherwise - setup a new game
+            {
+                StartSetUp();
+            }
+        }
+
         private void StartSetUp()
         {
-            if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
+            if (Is_Windows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
             //WelcomePage.AcsiiArt();
             //WelcomePage.StoryIntro();
             Render.Location(Board.board, CurrentRoom);
             Render.Action();
             Render.SceneDescription();
-            
         }
 
         private void UserTurn()
@@ -139,7 +159,7 @@ namespace redrum_not_muckduck_game
                     TalkToPerson();
                     break;
                 case "quit":
-                    IsGameOver = !IsGameOver;
+                    Is_Game_Over = !Is_Game_Over;
                     break;
                 case "save":
                     Console.Clear();
@@ -153,7 +173,7 @@ namespace redrum_not_muckduck_game
                     break;
                 case "hint":
                     Console.Clear();
-                    Hints.Render();
+                    HintPage.Render();
                     break;
                 default:
                     Board.Render();
@@ -179,21 +199,32 @@ namespace redrum_not_muckduck_game
         {
             Render.DeleteScene();
             Render.Quote();
-            //Adding hint to hint list after talking to people
-            if (!hintList.Contains(CurrentRoom.GetQuote()) && CurrentRoom.Name != "Reception")
-            {
-                hintList.Add(CurrentRoom.GetQuote());
-                Hints.DisplayHints(CurrentRoom.GetQuote()); 
-            }
-
+            AddQuoteToHintPage();
+            CheckIfTalkingToMichael();
             Board.Render();
+        }
+
+        private void AddQuoteToHintPage()
+        {
+            //Check if quote has been added to hint page
+            //Unless we're in Reception - because talking to Michael is to end the game not to get a hint
+            if (!Collected_Hints.Contains(CurrentRoom.GetQuote()) && CurrentRoom.Name != "Reception")
+            {
+                Collected_Hints.Add(CurrentRoom.GetQuote());
+                HintPage.DisplayHints(CurrentRoom.GetQuote());
+            }
+        }
+
+        private void CheckIfTalkingToMichael()
+        {
             if (CurrentRoom.Name == "Reception")
             {
+                Board.Render();
                 bool userWantsToSolve = Solution.AskToSolvePuzzle();
                 if (userWantsToSolve)
                 {
                     //If the user would like to solve the puzzle - check their answers
-                    IsGameOver = Solution.CheckSolution();
+                    Is_Game_Over = Solution.CheckSolution();
                     CheckHealth();
                 }
                 else
@@ -201,7 +232,6 @@ namespace redrum_not_muckduck_game
                     //Otherwise - Tell them to come back when they are ready
                     Render.DeleteScene();
                     Render.OneLineQuestionOrQuote("Michael: \"Ok, come back when you are ready\"");
-                    Board.Render();
                 }
             }
         }
@@ -210,7 +240,7 @@ namespace redrum_not_muckduck_game
         {
             if (Number_of_Lives == 0)
             {
-                IsGameOver = true;
+                Is_Game_Over = true;
             }
         }
 
@@ -229,9 +259,9 @@ namespace redrum_not_muckduck_game
 
         private void CheckIfVistedRoom(string roomName)
         {
-            if (!vistedRooms.Contains(roomName))
+            if (!Visited_Rooms.Contains(roomName))
             {
-                vistedRooms.Add(roomName);
+                Visited_Rooms.Add(roomName);
                 Board.VistedRooms(roomName);
                 Number_of_Rooms++;
             }
