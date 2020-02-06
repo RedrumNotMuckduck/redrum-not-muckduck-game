@@ -61,50 +61,6 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        public void AddItemToFoundItems(string foundItem)
-        {
-            int ROW_WHERE_ITEMS_START = 8;
-            int COLUMN_WHERE_ITEMS_START = 50;
-            int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
-            for (int i = 0; i < foundItem.Length; i++)
-            {
-                board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
-            }
-        }
-
-        public void ClearCurrentRoom()
-        {
-            int ROW_WHERE_LOCATION_STARTS = 1;
-            int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
-            {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
-            }
-        }
-
-        public void UpdateCurrentPlayerLocation()
-        {
-            int ROW_WHERE_LOCATION_STARTS = 1;
-            int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
-            {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = Game.CurrentRoom.Name[i];
-            }
-        }
-
-        public void VistedRooms(string room)
-        {
-            int ROW_WHERE_ROOM_START = 15;
-            int COLUMN_WHERE_ROOM_START = 50;
-            int ROW_TO_INSERT_ROOM = ROW_WHERE_ROOM_START + Game.Number_of_Rooms; 
-        
-            for (int i = 0; i < room.Length; i++)
-            {
-                board[ROW_TO_INSERT_ROOM, COLUMN_WHERE_ROOM_START + i] = room[i];
-            }
-
-        }
-
         public char[,] Create()
         {
             // Creates default board to be updated throughout game

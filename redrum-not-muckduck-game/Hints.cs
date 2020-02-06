@@ -4,43 +4,43 @@ using System.Text;
 
 namespace redrum_not_muckduck_game
 {
-    public class Hints
+    public class HintPage
     {
         internal int BOARD_DIMENSION_ROWS = 20;
         internal int BOARD_DIMENSION_COLUMNS = 62;
         internal int ROW_WHERE_QUOTES_START = 2;
         internal int COLUMN_WHERE_QUOTES_START = 6;
-        public static int SavedHints = 0;
-        public static char[,] hintsPage { get; set; }
+        public static int Saved_Hints = 0;
+        public static char[,] Hint_Page_Board { get; set; }
 
-        public Hints()
+        public HintPage()
         {
-            hintsPage = Create(); 
+            Hint_Page_Board = Create();
         }
 
         public void DisplayHints(string hint)
         {
             for (int i = 0; i < hint.Length; i++)
             {
-                hintsPage[ROW_WHERE_QUOTES_START + SavedHints, COLUMN_WHERE_QUOTES_START + i] = hint[i];
+                Hint_Page_Board[ROW_WHERE_QUOTES_START + Saved_Hints, COLUMN_WHERE_QUOTES_START + i] = hint[i];
             }
-            ROW_WHERE_QUOTES_START +=1 ;
+            ROW_WHERE_QUOTES_START += 1;
         }
-  
+
         public void Render()
         {
             Console.Clear();
-            if(SavedHints == 0 && Game.hintList.Count == 0)
+            if(Saved_Hints == 0 && Game.Collected_Hints.Count == 0)
             {
                 string defaultHint = "No Hint Collected";
                 DisplayHints(defaultHint);
-                ROW_WHERE_QUOTES_START-=1; 
+                ROW_WHERE_QUOTES_START -= 1;
             }
             for (int row = 0; row < BOARD_DIMENSION_ROWS; row++)
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    Console.Write(hintsPage[row, column]);
+                    Console.Write(Hint_Page_Board[row, column]);
                 }
                 Console.WriteLine();
             }

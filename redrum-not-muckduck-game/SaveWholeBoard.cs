@@ -55,7 +55,14 @@ namespace redrum_not_muckduck_game
 
         public static void GetWorkingBoardDirectory()
         {
-            WorkingBoardDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Board.json");
+            if (Game.Is_Windows)
+            {
+                WorkingBoardDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Board.json");
+            }
+            else
+            {
+                WorkingBoardDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "Board.json");
+            }
         }
     }
 }
