@@ -9,14 +9,15 @@ namespace redrum_not_muckduck_game
     // You can find the game loop, user turn loop, navigation logic, and sets the scene for the game
     class Game
     {
-        public Room Accounting { get; set; }
-        public Room Sales { get; set; }
-        public Room Kitchen { get; set; }
-        public Room Breakroom { get; set; }
-        public Room Reception { get; set; }
-        public Room Annex { get; set; }
-        public Room Exit { get; set; }
+        public static Room Accounting { get; set; }
+        public static Room Sales { get; set; }
+        public static Room Kitchen { get; set; }
+        public static Room Breakroom { get; set; }
+        public static Room Reception { get; set; }
+        public static Room Annex { get; set; }
+        public static Room Exit { get; set; }
         public static Room CurrentRoom { get; set; }
+        public static List<Room> AllRooms{ get; set; }
         public static Board Board = new Board();
         public static HelpPage HelpPage = new HelpPage();
         public static Hints Hints = new Hints(); 
@@ -83,17 +84,19 @@ namespace redrum_not_muckduck_game
 
             CurrentRoom = Accounting;
 
-            Accounting.AdjacentRooms = new List<Room> { Sales };
-            Sales.AdjacentRooms = new List<Room> { Reception, Accounting, Kitchen };
-            Reception.AdjacentRooms = new List<Room> { Sales };
-            Kitchen.AdjacentRooms = new List<Room> { Sales, Annex };
-            Annex.AdjacentRooms = new List<Room> { Kitchen, Breakroom };
-            Breakroom.AdjacentRooms = new List<Room> { Annex };
+            Accounting.AdjacentRoom = new List<Room> { Sales };
+            Sales.AdjacentRoom = new List<Room> { Reception, Accounting, Kitchen };
+            Reception.AdjacentRoom = new List<Room> { Sales };
+            Kitchen.AdjacentRoom = new List<Room> { Sales, Annex };
+            Annex.AdjacentRoom = new List<Room> { Kitchen, Breakroom };
+            Breakroom.AdjacentRoom = new List<Room> { Annex };
+            AllRooms = new List<Room> { Accounting, Sales, Reception, Kitchen, Annex, Breakroom };
         }
 
-        public void Play()
+        public void Play(bool isNewGame)
         {
-            StartSetUp();
+            if (isNewGame) { StartSetUp(); }
+
             while (!IsGameOver)
             {
                 UserTurn();
@@ -137,6 +140,12 @@ namespace redrum_not_muckduck_game
                     break;
                 case "quit":
                     IsGameOver = !IsGameOver;
+                    break;
+                case "save":
+                    Console.Clear();
+                    SaveElements.Saved();
+                    SaveWholeBoard.Saved();
+                    Console.WriteLine("You game has been saved, Seen you soon.");
                     break;
                 case "help":
                     Console.Clear();
@@ -249,6 +258,8 @@ namespace redrum_not_muckduck_game
             if (Number_of_Lives == 0) { EndPage.LoseScene(); }
             else { EndPage.WinScene(); }
             EndPage.ThankYouAsciiArt();
+            SaveWholeBoard.ResetBoardFile();
+            SaveElements.ResetElementsFile();
         }
     }
 }
