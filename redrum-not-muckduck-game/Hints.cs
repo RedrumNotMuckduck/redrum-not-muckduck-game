@@ -10,17 +10,17 @@ namespace redrum_not_muckduck_game
         internal int BOARD_DIMENSION_COLUMNS = 62;
         internal int ROW_WHERE_QUOTES_START = 2;
         internal int COLUMN_WHERE_QUOTES_START = 6;
-        public static char[,] hintsPage { get; set; }
+        public static char[,] HintPageBoard { get; set; }
 
         public HintPage()
         {
-            hintsPage = Create();
+            HintPageBoard = Create();
         }
         public void DisplayHints(string hint)
         {
             for (int i = 0; i < hint.Length; i++)
             {
-                hintsPage[ROW_WHERE_QUOTES_START, COLUMN_WHERE_QUOTES_START + i] = hint[i];
+                HintPageBoard[ROW_WHERE_QUOTES_START, COLUMN_WHERE_QUOTES_START + i] = hint[i];
             }
             ROW_WHERE_QUOTES_START += 1;
         }
@@ -38,7 +38,7 @@ namespace redrum_not_muckduck_game
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    Console.Write(hintsPage[row, column]);
+                    Console.Write(HintPageBoard[row, column]);
                 }
                 Console.WriteLine();
             }

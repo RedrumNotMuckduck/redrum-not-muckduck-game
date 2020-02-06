@@ -130,7 +130,7 @@ namespace redrum_not_muckduck_game
             if (Is_Windows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
             //WelcomePage.AcsiiArt();
             //WelcomePage.StoryIntro();
-            Render.Location(Board.board, CurrentRoom);
+            Render.Location(CurrentRoom);
             Render.Action();
             Render.SceneDescription();
         }
@@ -144,16 +144,10 @@ namespace redrum_not_muckduck_game
             switch (userChoice)
             {
                 case "leave":
-                    Render.DeleteScene();
                     LeaveTheRoom();
-                    Render.SceneDescription();
-                    Board.Render();
                     break;
                 case "explore":
-                    Render.DeleteScene();
-                    Board.Render();
                     CheckIfItemHasBeenFound();
-                    Board.Render();
                     break;
                 case "talk":
                     TalkToPerson();
@@ -162,17 +156,12 @@ namespace redrum_not_muckduck_game
                     Is_Game_Over = !Is_Game_Over;
                     break;
                 case "save":
-                    Console.Clear();
-                    SaveElements.Saved();
-                    SaveWholeBoard.Saved();
-                    Console.WriteLine("You game has been saved, Seen you soon.");
+                    SaveTheGame();
                     break;
                 case "help":
-                    Console.Clear();
                     HelpPage.Render();
                     break;
                 case "hint":
-                    Console.Clear();
                     HintPage.Render();
                     break;
                 default:
@@ -184,20 +173,45 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
+            Delete.Scene();
             Render.AdjacentRooms();
             Board.Render();
+            AskUserWhereToGo();
+        }
+
+        private void AskUserWhereToGo()
+        {
             Console.Write("> ");
-            // TODO: error handling for user input 
             string nextRoom = Console.ReadLine().ToLower();
-            Render.DeleteScene();
-            Render.DeleteLocation(Board.board, CurrentRoom);
+            Delete.Scene();
+            Delete.Location(CurrentRoom);
             UpdateCurrentRoom(nextRoom);
-            Render.Location(Board.board, CurrentRoom);
+            Render.Location(CurrentRoom);
+            Render.SceneDescription();
+            Board.Render();
+        }
+
+        private void CheckIfItemHasBeenFound()
+        {
+            Delete.Scene();
+            Board.Render();
+            if (CurrentRoom.HasItem)
+            {
+                Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
+                Render.ItemToFoundItems(CurrentRoom.ItemInRoom);
+                CurrentRoom.HasItem = !CurrentRoom.HasItem;
+                Number_of_Items++;
+            }
+            else
+            {
+                Render.OneLineQuestionOrQuote("Nothing left to explore");
+            }
+            Board.Render();
         }
 
         private void TalkToPerson()
         {
-            Render.DeleteScene();
+            Delete.Scene();
             Render.Quote();
             AddQuoteToHintPage();
             CheckIfTalkingToMichael();
@@ -230,29 +244,21 @@ namespace redrum_not_muckduck_game
                 else
                 {
                     //Otherwise - Tell them to come back when they are ready
-                    Render.DeleteScene();
+                    Delete.Scene();
                     Render.OneLineQuestionOrQuote("Michael: \"Ok, come back when you are ready\"");
                 }
             }
         }
 
-        private void CheckHealth()
-        {
-            if (Number_of_Lives == 0)
-            {
-                Is_Game_Over = true;
-            }
-        }
-
         private void UpdateCurrentRoom(string nextRoom)
-        {   // adding visted room while updating current room 
-           
+        {
+            //Loop through adjacent rooms to see which one the user selected
             foreach (Room Room in CurrentRoom.AdjacentRooms)
             {
                 if (nextRoom == Room.GetNameToLowerCase())
                 {
-                    CheckIfVistedRoom(CurrentRoom.Name); 
-                    CurrentRoom = Room;
+                    CheckIfVistedRoom(CurrentRoom.Name); //Check if user has been to this room
+                    CurrentRoom = Room; //Update the current room
                 }
             }
         }
@@ -261,25 +267,25 @@ namespace redrum_not_muckduck_game
         {
             if (!Visited_Rooms.Contains(roomName))
             {
-                Visited_Rooms.Add(roomName);
-                Board.VistedRooms(roomName);
+                Visited_Rooms.Add(roomName); //Add room to list of seen rooms
+                Render.VistedRooms(roomName); //Render to the board
                 Number_of_Rooms++;
             }
         }
 
-
-        private void CheckIfItemHasBeenFound()
+        private void SaveTheGame()
         {
-            if (CurrentRoom.HasItem)
+            Console.Clear();
+            SaveElements.Saved();
+            SaveWholeBoard.Saved();
+            Console.WriteLine("You game has been saved, Seen you soon.");
+        }
+
+        private void CheckHealth()
+        {
+            if (Number_of_Lives == 0)
             {
-                Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
-                Render.AddItemToFoundItems(Board.board, CurrentRoom.ItemInRoom);
-                CurrentRoom.HasItem = !CurrentRoom.HasItem;
-                Number_of_Items++;
-            }
-            else
-            {
-                Render.OneLineQuestionOrQuote("Nothing left to explore");
+                Is_Game_Over = true;
             }
         }
 

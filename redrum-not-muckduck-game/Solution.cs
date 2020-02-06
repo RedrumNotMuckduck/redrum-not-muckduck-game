@@ -24,7 +24,7 @@ namespace redrum_not_muckduck_game
             string[] questions = new string[] { "Michael: \"Who did it?\"", "Michael: \"What did they use?\"", "Michael: \"Where did it happen?\"" };
             for (int i = 0; i < Solutions.Length; i++)
             {
-                Render.DeleteScene();
+                Delete.Scene();
                 Render.OneLineQuestionOrQuote(questions[i]);
                 Game.Board.Render();
                 Console.Write("> ");
@@ -42,17 +42,17 @@ namespace redrum_not_muckduck_game
 
         private static void WrongGuess()
         {
-            Render.DeleteScene();
+            Delete.Scene();
             Render.OneLineQuestionOrQuote("Michael: \"That sounds off - OUCH, lose a life\"");
             Game.Board.Render();
             Thread.Sleep(2000);//Display if the guess was wrong for 2 second
-            Render.DeleteScene();
+            Delete.Scene();
             Game.Board.Render();
         }
 
         private static void RightGuess()
         {
-            Render.DeleteScene();
+            Delete.Scene();
             Render.OneLineQuestionOrQuote("Michael : \"That's right!\"");
             Game.Board.Render();
             Thread.Sleep(2000); //Display if the guess was right/wrong for 2 second
