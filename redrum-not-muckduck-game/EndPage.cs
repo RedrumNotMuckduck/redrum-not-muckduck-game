@@ -16,8 +16,6 @@ namespace redrum_not_muckduck_game
         {
             Console.Clear();
             Render.TypeByElement(WinMessage);
-            // Waits for user to hit key to continue
-            Console.ReadKey(true);
         }
 
         public static string[] LoseMessage = {"\n\tAfter breathing in too much smoke you wake up surrounded by firefighters. ",
@@ -28,8 +26,6 @@ namespace redrum_not_muckduck_game
         {
             Console.Clear();
             Render.TypeByElement(LoseMessage);
-            // Waits for user to hit key to continue
-            Console.ReadKey(true);
         }
 
         public static void ThankYouAsciiArt()

@@ -40,7 +40,7 @@ namespace redrum_not_muckduck_game
                "*Out of the corner of your eye, you " +
                "*see a drawer slowly open. ",
                "Angela's cat, Bandit",
-               "Oscar: \"I am going into the ceiling\"",
+               "Oscar: \'I am going into the ceiling\'",
                true
                );
             Sales = new Room(
@@ -50,14 +50,14 @@ namespace redrum_not_muckduck_game
                "*knocks over his trash can, something makes " +
                "*a thud sound as it falls out.",
                "a random torch",
-               "Andy: \"This would never happen at Cornell\"",
+               "Andy: \'This would never happen at Cornell\'",
                true
                );
             Kitchen = new Room(
                 "Kitchen",
                 " ",
                 "Oscar falling out of ceiling",
-                "Phyllis: \"I saw Dwight came from the breakroom\"",
+                "Phyllis: \'I saw Dwight came from the breakroom\'",
                 false
                 );
             Breakroom = new Room(
@@ -78,7 +78,7 @@ namespace redrum_not_muckduck_game
                 "Annex",
                 " ",
                 "beet stained cigs",
-                "Kelly: \"Why does Dwight have a blow horn?\"",
+                "Kelly: \'Why does Dwight have a blow horn?\'",
                 true
                 );
 
@@ -143,6 +143,8 @@ namespace redrum_not_muckduck_game
                     break;
                 case "save":
                     Console.Clear();
+                    SaveVisitedRooms.Saved();
+                    SaveHintQuotes.Saved();
                     SaveElements.Saved();
                     SaveWholeBoard.Saved();
                     Console.WriteLine("You game has been saved, Seen you soon.");
@@ -258,6 +260,7 @@ namespace redrum_not_muckduck_game
             if (Number_of_Lives == 0) { EndPage.LoseScene(); }
             else { EndPage.WinScene(); }
             EndPage.ThankYouAsciiArt();
+            SaveHints.ResetHintsFile();
             SaveWholeBoard.ResetBoardFile();
             SaveElements.ResetElementsFile();
         }
