@@ -84,19 +84,19 @@ namespace redrum_not_muckduck_game
 
             CurrentRoom = Accounting;
 
-            Accounting.AdjacentRoom = new List<Room> { Sales };
-            Sales.AdjacentRoom = new List<Room> { Reception, Accounting, Kitchen };
-            Reception.AdjacentRoom = new List<Room> { Sales };
-            Kitchen.AdjacentRoom = new List<Room> { Sales, Annex };
-            Annex.AdjacentRoom = new List<Room> { Kitchen, Breakroom };
-            Breakroom.AdjacentRoom = new List<Room> { Annex };
+            Accounting.AdjacentRooms = new List<Room> { Sales };
+            Sales.AdjacentRooms = new List<Room> { Reception, Accounting, Kitchen };
+            Reception.AdjacentRooms = new List<Room> { Sales };
+            Kitchen.AdjacentRooms = new List<Room> { Sales, Annex };
+            Annex.AdjacentRooms = new List<Room> { Kitchen, Breakroom };
+            Breakroom.AdjacentRooms = new List<Room> { Annex };
             AllRooms = new List<Room> { Accounting, Sales, Reception, Kitchen, Annex, Breakroom };
         }
 
         public void Play(bool isNewGame)
         {
             if (isNewGame) { StartSetUp(); }
-
+            Board.Render();
             while (!IsGameOver)
             {
                 UserTurn();
@@ -112,7 +112,7 @@ namespace redrum_not_muckduck_game
             Render.Location(Board.board, CurrentRoom);
             Render.Action();
             Render.SceneDescription();
-            Board.Render();
+            
         }
 
         private void UserTurn()

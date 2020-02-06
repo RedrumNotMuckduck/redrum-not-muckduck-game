@@ -30,8 +30,6 @@ namespace redrum_not_muckduck_game
             var myJsonFile = File.ReadAllText(WorkingElementDirectory);
             myJsonFile = myJsonFile.Replace("{", string.Empty).Replace("}", string.Empty).Replace("\"", string.Empty);
 
-            Console.WriteLine(myJsonFile);
-
             var dict = myJsonFile.Split(',')
               .Select(s => s.Split(':'))
               .ToDictionary(a => a[0].Trim(), a => a[1].Trim());
