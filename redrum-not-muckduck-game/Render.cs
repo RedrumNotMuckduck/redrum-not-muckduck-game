@@ -13,11 +13,13 @@ namespace redrum_not_muckduck_game
             int ROW_WHERE_OPTIONS_START = 14;
             int COLUMN_WHERE_OPTIONS_START = 2;
             string header = "You have the choice to go to: ";
+
             for (int i = 0; i < header.Length; i++)
             {
                 Board.board[ROW_WHERE_OPTIONS_START, COLUMN_WHERE_OPTIONS_START + i] = header[i];
             }
             ROW_WHERE_OPTIONS_START++;
+
             foreach (Room Room in Game.CurrentRoom.AdjacentRooms)
             {
                 for (int i = 0; i < Room.GetNameLength(); i++)
@@ -33,6 +35,7 @@ namespace redrum_not_muckduck_game
             int ROW_WHERE_QUOTE_STARTS = 14;
             int COLUMN_WHERE_QUOTE_STARTS = 1;
             string quote = Game.CurrentRoom.GetQuote();
+
             for (int i = 0; i < quote.Length; i++)
             {
                 Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = quote[i];
@@ -43,6 +46,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_ACTIONS_START = 5;
             int COLUMN_WHERE_ACTIONS_START = 2;
+
             for (int i = 0; i < Actions.Length; i++)
             {
                 for (int j = 0; j < Actions[i].Length; j++)
@@ -57,6 +61,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_QUESITON_STARTS = 14;
             int COLUMN_WHERE_QUESTION_STARTS = 1;
+
             for (int i = 0; i < questionOrQuote.Length; i++)
             {
                 Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = questionOrQuote[i];
@@ -90,6 +95,7 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
+
             for (int i = 0; i < currentRoom.GetNameLength(); i++)
             {
                 Board.board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = currentRoom.Name[i];
@@ -101,6 +107,7 @@ namespace redrum_not_muckduck_game
             int ROW_WHERE_ITEMS_START = 8;
             int COLUMN_WHERE_ITEMS_START = 50;
             int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
+
             for (int i = 0; i < foundItem.Length; i++)
             {
                 Board.board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
