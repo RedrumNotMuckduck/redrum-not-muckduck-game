@@ -183,11 +183,7 @@ namespace redrum_not_muckduck_game
         {
             Console.Write("> ");
             string nextRoom = Console.ReadLine().ToLower();
-            Delete.Scene();
-            Delete.Location(CurrentRoom);
             UpdateCurrentRoom(nextRoom);
-            Render.Location(CurrentRoom);
-            Render.SceneDescription();
             Board.Render();
         }
 
@@ -252,6 +248,8 @@ namespace redrum_not_muckduck_game
 
         private void UpdateCurrentRoom(string nextRoom)
         {
+            Delete.Scene();
+            Delete.Location(CurrentRoom);
             //Loop through adjacent rooms to see which one the user selected
             foreach (Room Room in CurrentRoom.AdjacentRooms)
             {
@@ -261,6 +259,8 @@ namespace redrum_not_muckduck_game
                     CurrentRoom = Room; //Update the current room
                 }
             }
+            Render.Location(CurrentRoom);
+            Render.SceneDescription();
         }
 
         private void CheckIfVistedRoom(string roomName)
