@@ -33,7 +33,7 @@ namespace redrum_not_muckduck_game
             int ROW_WHERE_QUOTE_STARTS = 14;
             int COLUMN_WHERE_QUOTE_STARTS = 1;
             string quote = Game.CurrentRoom.GetQuote();
-            for (int i = 0; i < Game.CurrentRoom.GetQuoteLength(); i++)
+            for (int i = 0; i < quote.Length; i++)
             {
                 Board.board[ROW_WHERE_QUOTE_STARTS, COLUMN_WHERE_QUOTE_STARTS + i] = quote[i];
             }
@@ -67,22 +67,22 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_SCENE_STARTS = 14;
             int COLUMN_WHERE_SCENE_STARTS = 2;
-            int currentLetter = 0;
+            int currentColumn = 0;
+            string description = Game.CurrentRoom.Description;
 
-            for (int i = 0; i < Game.CurrentRoom.Description.Length; i++)
+            for (int i = 0; i < description.Length; i++)
             {
                 // * Asterisk represents a new line 
                 //  If statement increases row, restarts the column, & currentLetter
                 //  so that the description is rendered on the next line.
-                if (Game.CurrentRoom.Description[i] == '*')
+                if (description[i] == '*')
                 {
                     i++;
                     ROW_WHERE_SCENE_STARTS++;
-                    COLUMN_WHERE_SCENE_STARTS = 2;
-                    currentLetter = 0;
+                    currentColumn = 0;
                 }
-                Board.board[ROW_WHERE_SCENE_STARTS, COLUMN_WHERE_SCENE_STARTS + currentLetter] = Game.CurrentRoom.Description[i];
-                currentLetter++;
+                Board.board[ROW_WHERE_SCENE_STARTS, COLUMN_WHERE_SCENE_STARTS + currentColumn] = description[i];
+                currentColumn++;
             }
         }
 
