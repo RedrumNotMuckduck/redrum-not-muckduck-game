@@ -46,7 +46,7 @@ namespace redrum_not_muckduck_game
 
         public static void UpdateRoom()
         {
-            foreach (Room room in Game.AllRooms)
+            foreach (Room room in Game.List_Of_All_Roooms)
             {
                 if(Game.CurrentRoom.Name == room.Name)
                 {
@@ -62,7 +62,14 @@ namespace redrum_not_muckduck_game
 
         public static void GetWorkingElementDirectory()
         {
-            WorkingElementDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Elements.json");
+            if (Game.Is_Windows)
+            {
+                WorkingElementDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Elements.json");
+            }
+            else
+            {
+                WorkingElementDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "Elements.json");
+            }
         }
     }
 

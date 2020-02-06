@@ -10,7 +10,7 @@ namespace redrum_not_muckduck_game
     {
         internal int BOARD_DIMENSION_ROWS = 20;
         internal int BOARD_DIMENSION_COLUMNS = 52;
-        public static char[,] helpPage { get; set; }
+        public static char[,] HelpPageBoard { get; set; }
 
         public string helpMessage =
          "In order to ESCAPE you must find "+
@@ -30,10 +30,10 @@ namespace redrum_not_muckduck_game
 
         public HelpPage()
         {
-            helpPage = Create();
+            HelpPageBoard = Create();
         }
 
-        public void displayHelpMsg()
+        public void DisplayHelpMessage()
         {
             int ROW_WHERE_MSG_STARTS = 2;
             int COLUMN_WHERE_MSG_STARTS = 6;
@@ -48,7 +48,7 @@ namespace redrum_not_muckduck_game
                     COLUMN_WHERE_MSG_STARTS = 6;
                     currentLetter = 0; 
                 }
-                helpPage[ROW_WHERE_MSG_STARTS, COLUMN_WHERE_MSG_STARTS + currentLetter] = helpMessage[i];
+                HelpPageBoard[ROW_WHERE_MSG_STARTS, COLUMN_WHERE_MSG_STARTS + currentLetter] = helpMessage[i];
                 currentLetter++; 
             }
         }
@@ -59,8 +59,8 @@ namespace redrum_not_muckduck_game
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    Console.Write(helpPage[row, column]);
-                    displayHelpMsg();
+                    Console.Write(HelpPageBoard[row, column]);
+                    DisplayHelpMessage();
                 }
                 Console.WriteLine();
             }

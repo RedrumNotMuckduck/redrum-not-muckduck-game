@@ -6,6 +6,8 @@ namespace redrum_not_muckduck_game
     // You can find how to delete a scene, render available rooms, scene description, & quotes
     class Render
     {
+        private static readonly string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
+
         public static void AdjacentRooms()
         {
             int ROW_WHERE_OPTIONS_START = 14;
@@ -41,11 +43,11 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_ACTIONS_START = 5;
             int COLUMN_WHERE_ACTIONS_START = 2;
-            for (int i = 0; i < Game.Actions.Length; i++)
+            for (int i = 0; i < Actions.Length; i++)
             {
-                for (int j = 0; j < Game.Actions[i].Length; j++)
+                for (int j = 0; j < Actions[i].Length; j++)
                 {
-                    Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Game.Actions[i][j];
+                    Board.board[ROW_WHERE_ACTIONS_START, COLUMN_WHERE_ACTIONS_START + j] = Actions[i][j];
                 }
                 ROW_WHERE_ACTIONS_START++;
             }
@@ -58,21 +60,6 @@ namespace redrum_not_muckduck_game
             for (int i = 0; i < questionOrQuote.Length; i++)
             {
                 Board.board[ROW_WHERE_QUESITON_STARTS, COLUMN_WHERE_QUESTION_STARTS + i] = questionOrQuote[i];
-            }
-        }
-
-        public static void DeleteScene()
-        {
-            int ROW_SCENE_ENDS = 20;
-            int COL_SCENCE_STARTS = 1;
-            int COL_SCENCE_ENDS = 48;
-
-            for (int ROW_SCENE_STARTS = 14; ROW_SCENE_STARTS < ROW_SCENE_ENDS; ROW_SCENE_STARTS++)
-            {
-                for (int col = 0; col < COL_SCENCE_ENDS; col++)
-                {
-                    Board.board[ROW_SCENE_STARTS, COL_SCENCE_STARTS + col] = ' ';
-                }
             }
         }
 
@@ -99,34 +86,36 @@ namespace redrum_not_muckduck_game
             }
         }
 
-        public static void DeleteLocation(char[,] board, Room currentRoom)
+        public static void Location(Room currentRoom)
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
             for (int i = 0; i < currentRoom.GetNameLength(); i++)
             {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = ' ';
+                Board.board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = currentRoom.Name[i];
             }
         }
 
-        public static void Location(char[,] board, Room currentRoom)
-        {
-            int ROW_WHERE_LOCATION_STARTS = 1;
-            int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int i = 0; i < currentRoom.GetNameLength(); i++)
-            {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = currentRoom.Name[i];
-            }
-        }
-
-        public static void AddItemToFoundItems(char[,] board, string foundItem)
+        public static void ItemToFoundItems(string foundItem)
         {
             int ROW_WHERE_ITEMS_START = 8;
             int COLUMN_WHERE_ITEMS_START = 50;
             int ROW_TO_INSERT_NEW_ITEM = ROW_WHERE_ITEMS_START + Game.Number_of_Items;
             for (int i = 0; i < foundItem.Length; i++)
             {
-                board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
+                Board.board[ROW_TO_INSERT_NEW_ITEM, COLUMN_WHERE_ITEMS_START + i] = foundItem[i];
+            }
+        }
+
+        public static void VistedRooms(string room)
+        {
+            int ROW_WHERE_ROOM_START = 14;
+            int COLUMN_WHERE_ROOM_START = 50;
+            int ROW_TO_INSERT_ROOM = ROW_WHERE_ROOM_START + Game.Visited_Rooms.Count;
+
+            for (int i = 0; i < room.Length; i++)
+            {
+                Board.board[ROW_TO_INSERT_ROOM, COLUMN_WHERE_ROOM_START + i] = room[i];
             }
         }
 
