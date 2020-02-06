@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Console = Colorful.Console;
 
@@ -24,12 +25,13 @@ namespace redrum_not_muckduck_game
             Console.Clear();
             for (int row = 0; row < BOARD_DIMENSION_ROWS; row++)
             {
+                bool endOfWord = false; // We track the 'action' key words using this flag
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    // Highlights current location in orange
-                    if(row == 1 && column > 15 && column < 30)
+                    // Highlights current location in green
+                    if (row == 1 && column > 15 && column < 30)
                     {
-                        Console.Write(board[row, column], Color.Orange);
+                        Console.Write(board[row, column], Color.Green);
                     }
                     // Highlights users health in red 
                     else if (row == 2 && column > 49 && column < 70)
@@ -37,10 +39,19 @@ namespace redrum_not_muckduck_game
                         Console.Write(board[row, column], Color.Red);
                     }
                     // Highlights avaliable actions in yellow
-                    else if (row > 4 && row < 10 && column > 1 && column < 25) 
+                    else if (row > 4 && row < 10 && column > 3 && column < 25 && !endOfWord) 
                     {
-                        Console.Write(board[row, column], Color.Yellow); 
+                        if (board[row, column] == ' ') //Once a space is found (aka its the end of the word) we print the remainin sentence in white
+                        {
+                            endOfWord = true;
+                            Console.Write(board[row, column]);
+                        }
+                        else //Otherwise if it's not the end of the word - print in yellow
+                        {
+                            Console.Write(board[row, column], Color.Yellow); 
+                        }
                     }
+                    // If its not something that needs to be highlighted - just print it in white
                     else
                     {
                         Console.Write(board[row, column]);
@@ -75,16 +86,28 @@ namespace redrum_not_muckduck_game
         {
             int ROW_WHERE_LOCATION_STARTS = 1;
             int COLUMN_WHERE_LOCATION_STARTS = 16;
-            for (int j = 0; j < Game.CurrentRoom.Name.Length; j++)
+            for (int i = 0; i < Game.CurrentRoom.Name.Length; i++)
             {
-                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + j] = Game.CurrentRoom.Name[j];
+                board[ROW_WHERE_LOCATION_STARTS, COLUMN_WHERE_LOCATION_STARTS + i] = Game.CurrentRoom.Name[i];
             }
         }
 
+        public void VistedRooms(string room)
+        {
+            int ROW_WHERE_ROOM_START = 15;
+            int COLUMN_WHERE_ROOM_START = 50;
+            int ROW_TO_INSERT_ROOM = ROW_WHERE_ROOM_START + Game.Number_of_Rooms; 
         
+            for (int i = 0; i < room.Length; i++)
+            {
+                board[ROW_TO_INSERT_ROOM, COLUMN_WHERE_ROOM_START + i] = room[i];
+            }
+
+        }
+
         public char[,] Create()
         {
-            // Creates default board to be updated
+            // Creates default board to be updated throughout game
             return new char[30,80] //new char[] accepts constant values only - this is the same as new char[BOARD_DIMENSON_ROWS,BOARD_DIMENSION_COLUMNS]
             {
                 {'|','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','|'},
@@ -101,7 +124,7 @@ namespace redrum_not_muckduck_game
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-                {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
+                {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|','R','O','O','M','S',' ','V','I','S','I','T','E','D',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
                 {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},

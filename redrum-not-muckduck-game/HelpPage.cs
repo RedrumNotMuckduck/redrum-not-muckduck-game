@@ -41,7 +41,7 @@ namespace redrum_not_muckduck_game
 
             for (int i = 0; i < helpMessage.Length; i++)
             {
-                if(helpMessage[i] == '*')
+                if(helpMessage[i] == '*') //'*' represents a new line - reset the variables to print to the next line
                 {
                     i++; 
                     ROW_WHERE_MSG_STARTS++;
@@ -52,7 +52,6 @@ namespace redrum_not_muckduck_game
                 currentLetter++; 
             }
         }
-
         public void Render()
         {
             Console.Clear();
@@ -60,13 +59,12 @@ namespace redrum_not_muckduck_game
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                        Console.Write(helpPage[row, column]);
-                        displayHelpMsg();
+                    Console.Write(helpPage[row, column]);
+                    displayHelpMsg();
                 }
                 Console.WriteLine();
             }
         }
-
         public char[,] Create()
         {
             return new char[20, 52] //new char[] accepts constant values only - this is the same as new char[BOARD_DIMENSON_ROWS,BOARD_DIMENSION_COLUMNS]

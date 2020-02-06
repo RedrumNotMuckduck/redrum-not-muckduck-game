@@ -11,7 +11,7 @@ namespace redrum_not_muckduck_game
         public string ItemInRoom { get; set; }
         public string PersonInRoom { get; set; }
         public bool HasItem { get; set; }
-        public List<Room> AdjacentRoom { get; set; }
+        public List<Room> AdjacentRooms { get; set; }
 
         public Room(string roomName, string description, string itemInRoom, string personInRoom, bool hasItem)
         {
@@ -20,6 +20,26 @@ namespace redrum_not_muckduck_game
             ItemInRoom = itemInRoom;
             PersonInRoom = personInRoom;
             HasItem = hasItem;
+        }
+
+        public string GetNameToLowerCase()
+        {
+            return Name.ToLower();
+        }
+
+        public int GetNameLength()
+        {
+            return Name.Length;
+        }
+
+        public string GetQuote()
+        {
+            return PersonInRoom;
+        }
+
+        public int GetQuoteLength()
+        {
+            return PersonInRoom.Length;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing; 
 using Console = Colorful.Console;
 
 namespace redrum_not_muckduck_game
@@ -20,14 +19,17 @@ namespace redrum_not_muckduck_game
         public static Room CurrentRoom { get; set; }
         public static List<Room> AllRooms{ get; set; }
         public static Board Board = new Board();
-        public static Render Render = new Render();
-        public static Solution Solution = new Solution();
         public static HelpPage HelpPage = new HelpPage();
+        public static Hints Hints = new Hints(); 
         public static int Number_of_Lives { get; set; } = 3;
         public static int Number_of_Items { get; set; } = 0;
+        public static int Number_of_Rooms { get; set; } = 0;
+        public static int Number_of_Names { get; set; } = 0; 
         public static bool IsGameOver = false;
-        public static string[] Actions = new string[] { "-explore", "-talk to someone", "-leave the current room", "-quit playing" };
+        public static string[] Actions = new string[] { "- explore", "- talk to someone", "- leave the current room", "- quit playing" };
         public static bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        public static List<string> hintList = new List<string>();
+        public static List<string> vistedRooms = new List<string>();
 
         public Game()
         {
@@ -62,14 +64,14 @@ namespace redrum_not_muckduck_game
                 "Breakroom",
                 " ",
                 "vending machine",
-                "No one is here",
+                "No one is in the breakroom",
                 false
                 );
             Reception = new Room(
                 "Reception",
                 " ",
                 "no item",
-                "Pam: \"The door is locked\"",
+                "Michael: \"Would you like to solve the puzzle?\"",
                 false
                 );
             Annex = new Room(
@@ -93,33 +95,24 @@ namespace redrum_not_muckduck_game
 
         public void Play(bool isNewGame)
         {
-            if (isNewGame) 
-            { 
-                if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); }
-                //WelcomePage.AcsiiArt();
-                //WelcomePage.StoryIntro();
-                Board.UpdateCurrentPlayerLocation();
-                Render.Action();
-                Render.SceneDescription();
-                Console.WriteLine("Welcome to the Office!");
-            }
-                Board.Render();
+            if (isNewGame) { StartSetUp(); }
 
             while (!IsGameOver)
             {
                 UserTurn();
             }
-            if (Number_of_Lives == 0)
-            {
-                EndPage.LoseScene();
-            }
-            else
-            {
-                EndPage.WinScene();
-            }
-            EndPage.ThankYou();
-            SaveWholeBoard.ResetBoardFile();
-            SaveElements.ResetElementsFile();
+            EndOfGame();
+        }
+
+        private void StartSetUp()
+        {
+            if (IsWindows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
+            //WelcomePage.AcsiiArt();
+            //WelcomePage.StoryIntro();
+            Render.Location(Board.board, CurrentRoom);
+            Render.Action();
+            Render.SceneDescription();
+            Board.Render();
         }
 
         private void UserTurn()
@@ -139,19 +132,14 @@ namespace redrum_not_muckduck_game
                 case "explore":
                     Render.DeleteScene();
                     Board.Render();
-                    Console.WriteLine($"You found: {CurrentRoom.ItemInRoom}");
                     CheckIfItemHasBeenFound();
                     Board.Render();
                     break;
                 case "talk":
-                    Render.DeleteScene();
-                    Render.Quote();
-                    Board.Render();
+                    TalkToPerson();
                     break;
                 case "quit":
                     IsGameOver = !IsGameOver;
-                    Console.Clear();
-                    Console.WriteLine("\nThanks for playing. Goodbye. ");
                     break;
                 case "save":
                     Console.Clear();
@@ -163,6 +151,10 @@ namespace redrum_not_muckduck_game
                     Console.Clear();
                     HelpPage.Render();
                     break;
+                case "hint":
+                    Console.Clear();
+                    Hints.Render();
+                    break;
                 default:
                     Board.Render();
                     Console.WriteLine("Please enter a valid option: (explore, talk, leave, quit)");
@@ -172,44 +164,102 @@ namespace redrum_not_muckduck_game
 
         private void LeaveTheRoom()
         {
+            Render.AdjacentRooms();
+            Board.Render();
+            Console.Write("> ");
+            // TODO: error handling for user input 
+            string nextRoom = Console.ReadLine().ToLower();
+            Render.DeleteScene();
+            Render.DeleteLocation(Board.board, CurrentRoom);
+            UpdateCurrentRoom(nextRoom);
+            Render.Location(Board.board, CurrentRoom);
+        }
+
+        private void TalkToPerson()
+        {
+            Render.DeleteScene();
+            Render.Quote();
+            //Adding hint to hint list after talking to people
+            if (!hintList.Contains(CurrentRoom.GetQuote()) && CurrentRoom.Name != "Reception")
+            {
+                hintList.Add(CurrentRoom.GetQuote());
+                Hints.DisplayHints(CurrentRoom.GetQuote()); 
+            }
+
+            Board.Render();
             if (CurrentRoom.Name == "Reception")
             {
-                Solution.CheckSolution();
-                Solution.CheckHealth();
+                bool userWantsToSolve = Solution.AskToSolvePuzzle();
+                if (userWantsToSolve)
+                {
+                    //If the user would like to solve the puzzle - check their answers
+                    IsGameOver = Solution.CheckSolution();
+                    CheckHealth();
+                }
+                else
+                {
+                    //Otherwise - Tell them to come back when they are ready
+                    Render.DeleteScene();
+                    Render.OneLineQuestionOrQuote("Michael: \"Ok, come back when you are ready\"");
+                    Board.Render();
+                }
             }
-            else
+        }
+
+        private void CheckHealth()
+        {
+            if (Number_of_Lives == 0)
             {
-                Render.AdjacentRooms();
-                Board.Render();
-                Console.Write("> ");
-                // TODO: error handling for user input 
-                string nextRoom = Console.ReadLine().ToLower();
-                Render.DeleteScene();
-                Board.ClearCurrentRoom();
-                UpdateCurrentRoom(nextRoom);
-                Board.UpdateCurrentPlayerLocation();
+                IsGameOver = true;
             }
         }
 
         private void UpdateCurrentRoom(string nextRoom)
-        {
-            for (int i = 0; i < CurrentRoom.AdjacentRoom.Count; i++)
+        {   // adding visted room while updating current room 
+           
+            foreach (Room Room in CurrentRoom.AdjacentRooms)
             {
-                if (nextRoom == CurrentRoom.AdjacentRoom[i].Name.ToLower())
+                if (nextRoom == Room.GetNameToLowerCase())
                 {
-                    CurrentRoom = CurrentRoom.AdjacentRoom[i];
+                    CheckIfVistedRoom(CurrentRoom.Name); 
+                    CurrentRoom = Room;
                 }
             }
         }
-      
+
+        private void CheckIfVistedRoom(string roomName)
+        {
+            if (!vistedRooms.Contains(roomName))
+            {
+                vistedRooms.Add(roomName);
+                Board.VistedRooms(roomName);
+                Number_of_Rooms++;
+            }
+        }
+
+
         private void CheckIfItemHasBeenFound()
         {
             if (CurrentRoom.HasItem)
             {
-                Board.AddItemToFoundItems(CurrentRoom.ItemInRoom);
+                Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
+                Render.AddItemToFoundItems(Board.board, CurrentRoom.ItemInRoom);
                 CurrentRoom.HasItem = !CurrentRoom.HasItem;
                 Number_of_Items++;
             }
+            else
+            {
+                Render.OneLineQuestionOrQuote("Nothing left to explore");
+            }
+        }
+
+        private void EndOfGame()
+        {
+            if (Number_of_Lives == 0) { EndPage.LoseScene(); }
+            else { EndPage.WinScene(); }
+            EndPage.ThankYouAsciiArt();
+            SaveWholeBoard.ResetBoardFile();
+            SaveElements.ResetElementsFile();
         }
     }
 }
