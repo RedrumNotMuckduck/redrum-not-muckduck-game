@@ -10,12 +10,11 @@ namespace redrum_not_muckduck_game
         public string VisitedRooms { get; set; }
         public static string WorkingVisitedRoomsDirectory { get; set; }
 
-
         public static void Saved()
         {
             SaveVisitedRooms SavedRoomsLists = new SaveVisitedRooms
             {
-                VisitedRooms = string.Join(",", Game.vistedRooms),
+                VisitedRooms = string.Join(",", Game.Visited_Rooms),
             };
             File.WriteAllText(WorkingVisitedRoomsDirectory, JsonConvert.SerializeObject(SavedRoomsLists));
         }
@@ -28,12 +27,24 @@ namespace redrum_not_muckduck_game
                 .Replace("}", string.Empty)
                 .Replace("\"", string.Empty);
 
-            Game.vistedRooms = myVisitedRoomsFile.Split(',').ToList();
+            Game.Visited_Rooms = myVisitedRoomsFile.Split(',').ToList();
         }
         
         public static void GetWorkingVisitedRoomsDirectory()
         {
-            WorkingVisitedRoomsDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "VisitedRooms.json");
+            if (Game.Is_Windows)
+            {
+                WorkingVisitedRoomsDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "VisitedRooms.json");
+            }
+            else
+            {
+                WorkingVisitedRoomsDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "VisitedRooms.json");
+            }
+        }
+
+        public static void ResetVisitedRoomsFile()
+        {
+            File.WriteAllText(WorkingVisitedRoomsDirectory, string.Empty);
         }
     }
 }

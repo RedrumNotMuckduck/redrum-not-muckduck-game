@@ -301,6 +301,8 @@ namespace redrum_not_muckduck_game
             if (Number_of_Lives == 0) { EndPage.LoseScene(); }
             else { EndPage.WinScene(); }
             EndPage.ThankYouAsciiArt();
+            SaveHintQuotes.ResetHintQuotesFile();
+            SaveVisitedRooms.ResetVisitedRoomsFile();
             SaveHints.ResetHintsFile();
             SaveWholeBoard.ResetBoardFile();
             SaveElements.ResetElementsFile();

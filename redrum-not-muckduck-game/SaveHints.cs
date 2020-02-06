@@ -13,7 +13,7 @@ namespace redrum_not_muckduck_game
         {
             SaveHints SaveHints = new SaveHints
             {
-                HintsBoard = Hints.hintsPage,
+                HintsBoard = HintPage.Hint_Page_Board,
             };
 
             File.WriteAllText(WorkingHintDirectory, JsonConvert.SerializeObject(SaveHints));
@@ -42,7 +42,7 @@ namespace redrum_not_muckduck_game
                     hintsPageCurrentLetter = 0;
                 }
 
-                Hints.hintsPage[ROW_WHERE_HINTS_PAGE_STARTS, COLUMN_WHERE_HINTS_PAGE_STARTS + hintsPageCurrentLetter] = myJsonFile[i];
+                HintPage.Hint_Page_Board[ROW_WHERE_HINTS_PAGE_STARTS, COLUMN_WHERE_HINTS_PAGE_STARTS + hintsPageCurrentLetter] = myJsonFile[i];
                 hintsPageCurrentLetter++;
             }
         }
@@ -54,7 +54,14 @@ namespace redrum_not_muckduck_game
 
         public static void GetWorkingHintDirectory()
         {
-            WorkingHintDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Hints.json");
+            if (Game.Is_Windows)
+            {
+                WorkingHintDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "Hints.json");
+            }
+            else
+            {
+                WorkingHintDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "Hints.json");
+            }
         }
     }
 }

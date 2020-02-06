@@ -28,7 +28,7 @@ namespace redrum_not_muckduck_game
                 NumberofVisitedRooms = Game.Number_of_Rooms,
                 NumberofItems = Game.Number_of_Items,
                 NumberofLives = Game.Number_of_Lives,
-                NumberofHints = Game.hintList.Count(),
+                NumberofHints = Game.Collected_Hints.Count(),
             };
             
             File.WriteAllText(WorkingElementDirectory, JsonConvert.SerializeObject(SaveElements));
@@ -50,7 +50,7 @@ namespace redrum_not_muckduck_game
             Game.Number_of_Rooms = Int32.Parse(dict["NumberofVisitedRooms"]);
             Game.Number_of_Items = Int32.Parse(dict["NumberofItems"]);
             Game.Number_of_Lives = Int32.Parse(dict["NumberofLives"]);
-            Hints.SavedHints = Int32.Parse(dict["NumberofHints"]);
+            HintPage.Saved_Hints = Int32.Parse(dict["NumberofHints"]);
 
             UpdateRoom();
         }

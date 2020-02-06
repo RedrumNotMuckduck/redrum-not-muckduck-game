@@ -10,12 +10,11 @@ namespace redrum_not_muckduck_game
         public string SeenHints { get; set; }
         public static string WorkingHintQuotesDirectory { get; set; }
 
-
         public static void Saved()
         {
             SaveHintQuotes SavedHintsLists = new SaveHintQuotes
             {
-                SeenHints = string.Join(",", Game.hintList),
+                SeenHints = string.Join(",", Game.Collected_Hints),
             };
             File.WriteAllText(WorkingHintQuotesDirectory, JsonConvert.SerializeObject(SavedHintsLists));
         }
@@ -28,21 +27,33 @@ namespace redrum_not_muckduck_game
                 .Replace("}", string.Empty)
                 .Replace("\"", string.Empty);
 
-            Game.hintList = myHintQuotesFile.Split(',').ToList();
+            Game.Collected_Hints = myHintQuotesFile.Split(',').ToList();
             AddHintsToBoard();
         }
 
         public static void AddHintsToBoard()
         {
-            foreach (string hint in Game.hintList)
+            foreach (string hint in Game.Collected_Hints)
             {
-                Game.Hints.DisplayHints(hint);
+                Game.HintPage.DisplayHints(hint);
             }
         }
 
         public static void GetWorkingHintQuotesDirectory()
         {
-            WorkingHintQuotesDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "HintQuotes.json");
+            if (Game.Is_Windows)
+            {
+                WorkingHintQuotesDirectory = Environment.CurrentDirectory.Replace("bin\\Debug\\netcoreapp3.1", "HintQuotes.json");
+            }
+            else
+            {
+                WorkingHintQuotesDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "HintQuotes.json");
+            }
+        }
+
+        public static void ResetHintQuotesFile()
+        {
+            File.WriteAllText(WorkingHintQuotesDirectory, string.Empty);
         }
     }
 }
