@@ -134,8 +134,8 @@ namespace redrum_not_muckduck_game
         private void StartSetUp()
         {
             if (Is_Windows) { Sound.PlaySound("Theme.mp4", 1000); } //If device is windows - play music
-            //WelcomePage.AcsiiArt();
-            //WelcomePage.StoryIntro();
+            WelcomePage.AcsiiArt();
+            WelcomePage.StoryIntro();
             Render.Location(CurrentRoom);
             Render.Action();
             Render.SceneDescription();
