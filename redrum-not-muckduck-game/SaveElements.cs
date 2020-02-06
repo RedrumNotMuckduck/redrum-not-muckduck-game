@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -8,21 +7,31 @@ namespace redrum_not_muckduck_game
 {
     class SaveElements
     {
+        public string AccountingItem { get; set; }
+        public string SalesItem { get; set; }
+        public string AnnexItem { get; set; }
+        public string TheCurrentRoom { get; set; }
+        public int NumberofVisitedRooms { get; set; }
+        public int NumberofItems { get; set; }
+        public int NumberofLives { get; set; }
+        public int NumberofHints { get; set; }
         public static string WorkingElementDirectory { get; set; }
 
         public static void Saved()
         {
-            SavedElements SavedElements = new SavedElements 
+            SaveElements SaveElements = new SaveElements
             {
                 AccountingItem = Game.Accounting.HasItem.ToString(),
                 SalesItem = Game.Sales.HasItem.ToString(),
                 AnnexItem = Game.Annex.HasItem.ToString(),
                 TheCurrentRoom = Game.CurrentRoom.Name,
+                NumberofVisitedRooms = Game.Number_of_Rooms,
                 NumberofItems = Game.Number_of_Items,
                 NumberofLives = Game.Number_of_Lives,
+                NumberofHints = Game.hintList.Count(),
             };
             
-            File.WriteAllText(WorkingElementDirectory, JsonConvert.SerializeObject(SavedElements));
+            File.WriteAllText(WorkingElementDirectory, JsonConvert.SerializeObject(SaveElements));
         }
 
         public static void StoredElements()
@@ -38,8 +47,10 @@ namespace redrum_not_muckduck_game
             Game.Sales.HasItem = Convert.ToBoolean(dict["SalesItem"]);
             Game.Annex.HasItem = Convert.ToBoolean(dict["AnnexItem"]);
             Game.CurrentRoom.Name = dict["TheCurrentRoom"];
+            Game.Number_of_Rooms = Int32.Parse(dict["NumberofVisitedRooms"]);
             Game.Number_of_Items = Int32.Parse(dict["NumberofItems"]);
             Game.Number_of_Lives = Int32.Parse(dict["NumberofLives"]);
+            Hints.SavedHints = Int32.Parse(dict["NumberofHints"]);
 
             UpdateRoom();
         }
@@ -50,6 +61,7 @@ namespace redrum_not_muckduck_game
             {
                 if(Game.CurrentRoom.Name == room.Name)
                 {
+                    Game.CurrentRoom.Name = "Accounting";
                     Game.CurrentRoom = room;
                 }
             }
@@ -71,15 +83,5 @@ namespace redrum_not_muckduck_game
                 WorkingElementDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "Elements.json");
             }
         }
-    }
-
-    class SavedElements
-    {
-        public string AccountingItem { get; set; }
-        public string SalesItem { get; set; }
-        public string AnnexItem { get; set; }
-        public string TheCurrentRoom { get; set; }
-        public int NumberofItems { get; set; }
-        public int NumberofLives { get; set; }
     }
 }

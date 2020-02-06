@@ -10,17 +10,19 @@ namespace redrum_not_muckduck_game
         internal int BOARD_DIMENSION_COLUMNS = 62;
         internal int ROW_WHERE_QUOTES_START = 2;
         internal int COLUMN_WHERE_QUOTES_START = 6;
-        public static char[,] HintPageBoard { get; set; }
+        public static int Saved_Hints = 0;
+        public static char[,] Hint_Page_Board { get; set; }
 
         public HintPage()
         {
-            HintPageBoard = Create();
+            Hint_Page_Board = Create();
         }
+
         public void DisplayHints(string hint)
         {
             for (int i = 0; i < hint.Length; i++)
             {
-                HintPageBoard[ROW_WHERE_QUOTES_START, COLUMN_WHERE_QUOTES_START + i] = hint[i];
+                Hint_Page_Board[ROW_WHERE_QUOTES_START + Saved_Hints, COLUMN_WHERE_QUOTES_START + i] = hint[i];
             }
             ROW_WHERE_QUOTES_START += 1;
         }
@@ -28,7 +30,7 @@ namespace redrum_not_muckduck_game
         public void Render()
         {
             Console.Clear();
-            if (Game.Collected_Hints.Count == 0)
+            if(Saved_Hints == 0 && Game.Collected_Hints.Count == 0)
             {
                 string defaultHint = "No Hint Collected";
                 DisplayHints(defaultHint);
@@ -38,7 +40,7 @@ namespace redrum_not_muckduck_game
             {
                 for (int column = 0; column < BOARD_DIMENSION_COLUMNS; column++)
                 {
-                    Console.Write(HintPageBoard[row, column]);
+                    Console.Write(Hint_Page_Board[row, column]);
                 }
                 Console.WriteLine();
             }
@@ -70,7 +72,5 @@ namespace redrum_not_muckduck_game
                 {' ',' ',' ','╚','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╝', },
             };
         }
-
-
     }
 }

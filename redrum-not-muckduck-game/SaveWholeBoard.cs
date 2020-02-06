@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -8,16 +6,17 @@ namespace redrum_not_muckduck_game
 {
     class SaveWholeBoard
     {
+        public char[,] TheBoard { get; set; }
         public static string WorkingBoardDirectory { get; set; }
 
         public static void Saved()
         {
-            SavedBoard savedBoard = new SavedBoard
+            SaveWholeBoard SaveWholeBoard = new SaveWholeBoard
             {
                 TheBoard = Board.board,
             };
 
-            File.WriteAllText(WorkingBoardDirectory, JsonConvert.SerializeObject(savedBoard));
+            File.WriteAllText(WorkingBoardDirectory, JsonConvert.SerializeObject(SaveWholeBoard));
         }
 
         public static void Stored()
@@ -65,10 +64,5 @@ namespace redrum_not_muckduck_game
                 WorkingBoardDirectory = Environment.CurrentDirectory.Replace("bin/Debug/netcoreapp3.1", "Board.json");
             }
         }
-    }
-
-    class SavedBoard
-    {
-        public char[,] TheBoard { get; set; }
     }
 }
