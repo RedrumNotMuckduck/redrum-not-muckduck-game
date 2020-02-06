@@ -190,7 +190,6 @@ namespace redrum_not_muckduck_game
         private void CheckIfItemHasBeenFound()
         {
             Delete.Scene();
-            Board.Render();
             if (CurrentRoom.HasItem)
             {
                 Render.OneLineQuestionOrQuote($"You found: {CurrentRoom.ItemInRoom}");
