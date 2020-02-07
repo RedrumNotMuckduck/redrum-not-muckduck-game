@@ -85,7 +85,7 @@ namespace redrum_not_muckduck_game
                 "This is the back of the office " +
                 "*you probably should head back. " +
                 "Kelly wait around for Ryan" +
-                "He doesn't smoke cigareetes does " +
+                "He doesn't smoke cigarettes does " +
                 "he?",
                 "beet stained cigs",
                 "Kelly: \'Why does Dwight have a blow horn?\'",
