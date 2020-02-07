@@ -82,11 +82,12 @@ namespace redrum_not_muckduck_game
                 );
             Annex = new Room(
                 "Annex",
-                "This is the back of the office " +
-                "*you probably should head back. " +
-                "Kelly wait around for Ryan" +
-                "He doesn't smoke cigarettes does " +
-                "he?",
+                "You have made it to the " +
+                "*back of the office " +
+                "*you should probably go back. " +
+                "*Kelly waits around for Ryan. " +
+                "*He doesn't smoke cigarettes does " +
+                "*he?",
                 "beet stained cigs",
                 "Kelly: \'Why does Dwight have a blow horn?\'",
                 true
