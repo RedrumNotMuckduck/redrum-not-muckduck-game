@@ -116,6 +116,17 @@ namespace redrum_not_muckduck_game
             SaveElements.GetWorkingElementDirectory();
             SaveHints.GetWorkingHintDirectory();
 
+            //Create files
+            if (!File.Exists(SaveWholeBoard.WorkingBoardDirectory))
+            {
+                File.Create(SaveVisitedRooms.WorkingVisitedRoomsDirectory);
+                File.Create(SaveHintQuotes.WorkingHintQuotesDirectory);
+                File.Create(SaveWholeBoard.WorkingBoardDirectory);
+                File.Create(SaveElements.WorkingElementDirectory);
+                File.Create(SaveHints.WorkingHintDirectory);
+            }
+
+
             //If there is saved data - load it
             if (new FileInfo(SaveWholeBoard.WorkingBoardDirectory).Length != 0)
             {
