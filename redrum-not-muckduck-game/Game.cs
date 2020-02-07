@@ -57,29 +57,36 @@ namespace redrum_not_muckduck_game
                true
                );
             Kitchen = new Room(
-                "Kitchen",
-                " ",
+               "Kitchen",
+               "Why is Phyllis just standing here? " +
+               "*She seems very disturbed... " +,
                 "Oscar falling out of ceiling",
                 "Phyllis: \'I saw Dwight came from the breakroom\'",
                 false
                 );
             Breakroom = new Room(
                 "Breakroom",
-                " ",
+                "You are hungry but is there " +
+                "*time? Probably right?",
                 "vending machine",
                 "No one is in the breakroom",
                 false
                 );
             Reception = new Room(
                 "Reception",
-                " ",
+                "Michael waits to hear what " +
+                "*you think happened today",
                 "no item",
                 "Michael: \"Would you like to solve the puzzle?\"",
                 false
                 );
             Annex = new Room(
                 "Annex",
-                " ",
+                "This is the back of the office " +
+                "*you probably should head back. " +
+                "Kelly wait around for Ryan" +
+                "He doesn't smoke cigareetes does " +
+                "he?",
                 "beet stained cigs",
                 "Kelly: \'Why does Dwight have a blow horn?\'",
                 true
@@ -125,7 +132,6 @@ namespace redrum_not_muckduck_game
                 File.Create(SaveElements.WorkingElementDirectory);
                 File.Create(SaveHints.WorkingHintDirectory);
             }
-
 
             //If there is saved data - load it
             if (new FileInfo(SaveWholeBoard.WorkingBoardDirectory).Length != 0)
