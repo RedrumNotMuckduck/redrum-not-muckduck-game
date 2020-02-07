@@ -59,7 +59,7 @@ namespace redrum_not_muckduck_game
             Kitchen = new Room(
                "Kitchen",
                "Why is Phyllis just standing here? " +
-               "*She seems very disturbed... " +,
+               "*She seems very disturbed... ",
                 "Oscar falling out of ceiling",
                 "Phyllis: \'I saw Dwight came from the breakroom\'",
                 false
